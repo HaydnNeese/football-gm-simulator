@@ -1,12 +1,30 @@
-# React + Vite
+# 🏈 Football GM Simulator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A browser-based simulation game where you take on the role of an NFL General Manager—manage contracts, draft prospects, scout talent, handle team finances, deal with personalities, and build a dynasty.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔁 Realistic contract negotiation and salary cap mechanics
+- 🧠 Smart AI GMs with team-building strategies
+- 🕵️ Deep scouting and NFL Draft simulation
+- 🧾 Player agents with dynamic personalities
+- 💼 Team staff hiring and management
+- 📊 In-depth stats, standings, and record tracking
+- ⚖️ Injuries, suspensions, and off-field dynamics
+- 🧠 Football strategies: offensive/defensive schemes
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js (>= 18)
+- Git
+
+### Installation
+
+```bash
+git clone https://github.com/yourname/football-gm-simulator.git
+cd football-gm-simulator
+npm install
+npm run dev
+```
