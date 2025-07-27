@@ -1,4 +1,5 @@
 export interface PlayerStats {
+    id?: string; // Unique identifier for the stats
     season?: number; // e.g., 2024
     playerId?: string;
     teamId?: string; // For tracking team played with that season

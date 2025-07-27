@@ -1,4 +1,5 @@
 export interface Roster {
+  id?: string; // Unique identifier for the roster
   teamId: string;
   season: number;
   players: RosterPlayer[];

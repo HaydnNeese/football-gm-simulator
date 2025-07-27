@@ -3,6 +3,8 @@
  * Each property is optional and can be used to model players of any position.
  */
 export interface PlayerRatings {
+  playerId?: string; // Unique identifier for the player
+  id?: string; // Unique identifier for the ratings
   // --- Base Athletic Traits ---
 
   /** Top running speed (straight-line). */

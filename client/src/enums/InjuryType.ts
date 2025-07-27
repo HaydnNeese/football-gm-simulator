@@ -1,4 +1,4 @@
-export enum InjuryType {
+export enum InjuryTypeEnum {
   // Head and Neck
   Concussion = "Concussion",
   NeckStrain = "Neck Strain",
