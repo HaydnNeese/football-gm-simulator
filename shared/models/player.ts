@@ -6,7 +6,7 @@ import {
   FootballRecordEnum,
   InjuryTypeEnum,
   PlayerEventEnum,
-} from "../../client/src/enums";
+} from "../enums";
 
 // Define FootballRecord type or import it from its module
 export interface Player {

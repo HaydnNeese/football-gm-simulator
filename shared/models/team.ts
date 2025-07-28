@@ -4,7 +4,7 @@ import {
   DivisionEnum,
   FinancialHealthEnum,
   OffensiveSchemeEnum,
-} from "../../client/src/enums";
+} from "../enums";
 import { Player } from "./player";
 import { Position } from "./roster";
 import { TeamStats } from "./teamStats";

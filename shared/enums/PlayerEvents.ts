@@ -1,4 +1,4 @@
-import { Player } from "../../../shared/models/player";
+import { Player } from "../models/player";
 export enum PlayerEventEnum {
   // Personal - Positive
   BirthOfChild = "BirthOfChild",
