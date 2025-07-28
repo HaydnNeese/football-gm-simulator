@@ -1,0 +1,939 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PlayerRoleEnum {
+  STARTER
+  ROLE_PLAYER
+  BACKUP
+  SPECIAL_TEAMS
+  MENTOR
+}
+
+enum FootballRecordEnum {
+  CareerPassingYards
+  CareerPassingTouchdowns
+  SingleSeasonPassingYards
+  SingleSeasonPassingTouchdowns
+  SingleGamePassingYards
+  SingleGamePassingTouchdowns
+  CareerRushingYards
+  CareerRushingTouchdowns
+  SingleSeasonRushingYards
+  SingleSeasonRushingTouchdowns
+  SingleGameRushingYards
+  SingleGameRushingTouchdowns
+  CareerReceivingYards
+  CareerReceivingTouchdowns
+  SingleSeasonReceivingYards
+  SingleSeasonReceivingTouchdowns
+  SingleGameReceivingYards
+  SingleGameReceivingTouchdowns
+  CareerSacks
+  CareerInterceptions
+  SingleSeasonSacks
+  SingleSeasonInterceptions
+  SingleGameSacks
+  SingleGameInterceptions
+  LongestFieldGoal
+  MostFieldGoalsSingleGame
+  MostFieldGoalsSeason
+  CareerFieldGoalsMade
+  LongestKickReturn
+  LongestPuntReturn
+  MostKickReturnTouchdowns
+  MostPuntReturnTouchdowns
+  LongestWinStreak
+  MostWinsSeason
+  MostPointsScoredSeason
+  MostPointsScoredGame
+  MostGamesPlayed
+  MostProBowls
+  MostMVPs
+  MostChampionships
+}
+
+enum InjuryTypeEnum {
+  Concussion
+  NeckStrain
+  Stinger
+  ShoulderDislocation
+  RotatorCuffTear
+  BrokenCollarbone
+  ACJointSprain
+  ElbowSprain
+  BrokenArm
+  WristFracture
+  DislocatedFinger
+  BrokenFinger
+  ThumbSprain
+  RibFracture
+  AbdominalStrain
+  Hernia
+  LowerBackStrain
+  HipPointer
+  GroinStrain
+  HamstringStrain
+  QuadStrain
+  KneeSprain
+  ACLTear
+  MCLTear
+  LCLTear
+  PCLTear
+  MeniscusTear
+  PatellarTendinitis
+  AnkleSprain
+  HighAnkleSprain
+  AchillesTear
+  TurfToe
+  BrokenFoot
+  ToeFracture
+  Contusion
+  Cramping
+  Fatigue
+  Dehydration
+}
+
+enum OffFieldConcernTypeEnum {
+  LegalTrouble
+  BehavioralIssues
+  CommitmentConcerns
+  MediaDistractions
+  LockerRoomTension
+  CoachingConflict
+  SubstanceIssues
+  MotivationConcerns
+  ConditioningIssues
+  ReputationRisk
+  ContractDispute
+  AgentConflict
+  MaturityQuestions
+  FocusConcerns
+}
+
+enum PlayerPersonalityTraitEnum {
+  Leader
+  HardWorker
+  Lazy
+  Coachable
+  Uncoachable
+  Perfectionist
+  Slacker
+  Mentor
+  Respected
+  Delegator
+  Micromanager
+  Punctual
+  ChronicallyLate
+  Humble
+  Arrogant
+  Diva
+  TeamPlayer
+  Selfish
+  FameDriven
+  MoneyDriven
+  GloryHunter
+  Loyal
+  Disloyal
+  Entitled
+  SelfMotivated
+  NeedsValidation
+  PeoplePleaser
+  ClutchPerformer
+  Choker
+  Inconsistent
+  GameChanger
+  Dependable
+  MomentumPlayer
+  ConfidenceDriven
+  PressureResistant
+  Overthinks
+  GameManager
+  Disruptive
+  LockerRoomCancer
+  Mediator
+  Comedian
+  SilentProfessional
+  DramaSeeker
+  TeamDad
+  Bully
+  Instigator
+  Unifier
+  PartyAnimal
+  CleanLiving
+  RuleFollower
+  RuleBreaker
+  Focused
+  Distracted
+  OffFieldIssues
+  MediaTrained
+  Reckless
+  StraightEdge
+  WorkLifeBalanced
+  Overworked
+  NightOwl
+  EarlyRiser
+  HighFootballIQ
+  LowFootballIQ
+  FilmJunkie
+  Unprepared
+  Studious
+  Forgetful
+  SystemThinker
+  Instinctive
+  VisualLearner
+  NeedsRepetition
+  InjuryProne
+  Durable
+  SlowStarter
+  HotStarter
+  AlwaysWarmedUp
+  StrugglesWithConditioning
+  BodyLanguageProblem
+  VocalMotivator
+  FanFavorite
+  MediaDarling
+  MediaNightmare
+  Marketable
+  Forgettable
+  SocialMediaSavvy
+  BrandBuilder
+  AntiMedia
+  ReluctantStar
+  Flashy
+  WantsChampionships
+  WantsStats
+  WantsLegacy
+  RingChaser
+  CareerFocused
+  FamilyFocused
+  PassionForGame
+  WantsToCoach
+  WantsOut
+  LookingForNextContract
+  Resilient
+  Moody
+  Calm
+  ShortTempered
+  Anxious
+  Optimist
+  Pessimist
+  Adaptable
+  SystemDependent
+  ThrivesInChaos
+  NeedsStructure
+}
+
+enum PlayerEventEnum {
+  BirthOfChild
+  Married
+  CharityRecognition
+  PersonalMilestone
+  MediaPraise
+  InjuryRecovery
+  MediaDaySuccess
+  RevengeGameSuccess
+  NewAgent
+  RoleChange
+  LegalTrouble
+  FamilyIllness
+  PersonalLoss
+  MediaScandal
+  MediaCriticism
+  Suspension
+  ContractHoldout
+  TradeRequest
+  OffFieldIncident
+  DraftedHigh
+  BreakoutSeason
+  WonAward
+  AllProSelection
+  MVP
+  ProBowl
+  SuperBowlWin
+  RecordBroken
+  ContractExtension
+  BigContractSigning
+  PlayerOfTheWeek
+  PlayerOfTheMonth
+  BigGamePerformance
+  NewCareerHigh
+  NewTeamConnection
+  ContractYear
+  ApproachingFreeAgency
+  ApproachingRetirement
+  Traded
+  Benched
+  Injured
+  MajorInjury
+  MinorInjury
+  Released
+  CutFromTeam
+  LostStartingJob
+  ContractDispute
+  DroppedInDraft
+  TeamChampionship
+  CoachPraise
+  NewQBConnection
+  TeamChemistry
+  TrainingCampSuccess
+  NewTeamAcquisition
+  TeamPlayoffRun
+  TrainingCampBuzz
+  TrainingCampBattle
+  StadiumRenovation
+  NewTeamFacilities
+  TrainingCampStart
+  TeamCollapse
+  CoachFired
+  CoachingChange
+  LockerRoomDrama
+  MissedPlayoffs
+  TeammateDeparture
+  TradeRumors
+  LostPlayoffGame
+  LostSuperBowl
+  TeamRebuilding
+  TeamRelocation
+  TeamStruggles
+}
+
+enum DivisionEnum {
+  AFC_EAST
+  AFC_NORTH
+  AFC_SOUTH
+  AFC_WEST
+  NFC_EAST
+  NFC_NORTH
+  NFC_SOUTH
+  NFC_WEST
+}
+
+enum ConferenceEnum {
+  AFC
+  NFC
+}
+
+enum OffensiveSchemeEnum {
+  WEST_COAST
+  AIR_RAID
+  PRO_STYLE
+  WILDCAT
+  SPREAD
+  POWER_RUN
+  ZONE_RUN
+  BALANCED
+  PISTOL
+  RUN_AND_SHOOT
+}
+
+enum DefensiveSchemeEnum {
+  FOUR_THREE
+  THREE_FOUR
+  HYBRID
+  NICKEL_BASED
+  COVER_2
+  COVER_3
+  MULTIPLE
+  MAN_BLITZ_HEAVY
+  ZONE_HEAVY
+}
+
+enum PlayerPositionEnum {
+  QB
+  RB
+  FB
+  WR
+  TE
+  LT
+  LG
+  C
+  RG
+  RT
+  DE
+  DT
+  NT
+  EDGE
+  LB
+  MLB
+  OLB
+  ILB
+  CB
+  FS
+  SS
+  K
+  P
+  LS
+  KR
+  PR
+}
+
+enum FinancialHealthEnum {
+  EXCELLENT
+  GOOD
+  MODERATE
+  POOR
+}
+
+enum ContractNegotiationStatusEnum {
+  NotStarted
+  InProgress
+  OfferMade
+  OfferRejected
+  OfferAccepted
+  CounterOffer
+  Completed
+  Withdrawn
+  Expired
+  Stalled
+  Failed
+}
+
+enum OptionType {
+  TEAM
+  PLAYER
+}
+
+model Player {
+  id        String @id @default(uuid())
+  firstName String
+  lastName  String
+  age       Int
+  college   String
+
+  heightInInches Int
+  weightInPounds Int
+
+  teamId String?
+  team   Team?   @relation("ActiveRoster", fields: [teamId], references: [id])
+
+  practiceSquadTeamId String?
+  practiceSquadTeam   Team?   @relation("PracticeSquad", fields: [practiceSquadTeamId], references: [id])
+
+  injuredReserveTeamId String?
+  injuredReserveTeam   Team?   @relation("InjuredReserve", fields: [injuredReserveTeamId], references: [id])
+
+  suspendedListTeamId String?
+  suspendedListTeam   Team?   @relation("SuspendedList", fields: [suspendedListTeamId], references: [id])
+
+  currentContractId String?         @unique
+  currentContract   PlayerContract? @relation("PlayerCurrentContract")
+
+  agentId String?
+  agent   Agent?  @relation(fields: [agentId], references: [id])
+
+  ratingsId String? @unique
+  ratings   Rating? @relation(fields: [ratingsId], references: [id])
+
+  statsId String? @unique
+  stats   Stat?   @relation(fields: [statsId], references: [id])
+
+  // --- Enums ---
+  position          PlayerPositionEnum?
+  expectedRole      PlayerRoleEnum?
+  actualRole        PlayerRoleEnum?
+  recordsHeld       FootballRecordEnum[]
+  currentInjury     InjuryTypeEnum?
+  injuryHistory     InjuryTypeEnum[]
+  personalityTraits PlayerPersonalityTraitEnum[]
+  offFieldConcerns  OffFieldConcernTypeEnum[]
+  pastEvents        PlayerEventEnum[]
+
+  // --- Flags ---
+  isStarter       Boolean @default(false)
+  isCaptain       Boolean @default(false)
+  isFreeAgent     Boolean @default(false)
+  isRetired       Boolean @default(false)
+  isSuspended     Boolean @default(false)
+  isPracticeSquad Boolean @default(false)
+  isTradeBlock    Boolean @default(false)
+  offense         Boolean @default(false)
+  defense         Boolean @default(false)
+  specialTeams    Boolean @default(false)
+
+  // --- Draft & Contract ---
+  draftYear                 Int?
+  draftRound                Int?
+  isRecordHolder            Boolean                        @default(false)
+  contractDesiresId         String?                        @unique
+  contractDesires           ContractDesires?               @relation(fields: [contractDesiresId], references: [id])
+  contractNegotiationStatus ContractNegotiationStatusEnum?
+  lastContractUpdate        DateTime?
+
+  // --- Ratings ---
+  performanceRating Int?
+  impactRating      Int?
+  potential         Int?
+  experience        Int?
+
+  // --- Injury ---
+  isInjured                Boolean   @default(false)
+  injuryProneness          Boolean   @default(false)
+  expectedReturnFromInjury DateTime?
+
+  // --- Intangibles ---
+  morale       Int?
+  leadership   Int?
+  adaptability Int?
+  workEthic    Int?
+  consistency  Int?
+  clutchFactor Int?
+  footballIQ   Int?
+  popularity   Int?
+
+  // --- Training ---
+  trainingFocus    String?
+  trainingProgress Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Team {
+  id           String  @id @default(uuid())
+  name         String  @unique
+  nickname     String  @unique
+  location     String  @unique
+  abbreviation String  @unique
+  logoUrl      String?
+
+  division   DivisionEnum
+  conference ConferenceEnum
+
+  // Coach, staff, and front office fields remain unchanged ...
+
+  players        Player[] @relation("ActiveRoster")
+  practiceSquad  Player[] @relation("PracticeSquad")
+  injuredReserve Player[] @relation("InjuredReserve")
+  suspendedList  Player[] @relation("SuspendedList")
+
+  playerContracts PlayerContract[] @relation("TeamToContracts")
+
+  overallRating   Int
+  offensiveScheme OffensiveSchemeEnum
+  defensiveScheme DefensiveSchemeEnum
+  teamNeeds       PlayerPositionEnum[]
+
+  wins                 Int
+  losses               Int
+  ties                 Int
+  currentStreak        Int
+  longestWinningStreak Int
+  playoffAppearances   Int
+  superBowlAppearances Int
+  championships        Int
+
+  capSpace        Int
+  capLimit        Int
+  totalPayroll    Int
+  financialHealth FinancialHealthEnum
+
+  yearFounded    Int
+  allTimeWins    Int
+  allTimeLosses  Int
+  allTimeTies    Int
+  retiredNumbers Int[]
+
+  fanBaseSize Int
+  prestige    Int
+  rivalTeams  String[]
+}
+
+model PlayerContract {
+  id       String  @id @default(uuid())
+  playerId String? @unique
+  player   Player? @relation("PlayerCurrentContract", fields: [playerId], references: [id])
+
+  teamId           String?   @unique
+  team             Team?     @relation("TeamToContracts", fields: [teamId], references: [id])
+  signedDate       DateTime?
+  startSeason      Int?
+  endSeason        Int?
+  totalValue       Int?
+  averagePerYear   Int?
+  totalGuaranteed  Int?
+  isRookieContract Boolean?
+  isFranchiseTag   Boolean?
+  isExtension      Boolean?
+  isPlayerOptOut   Boolean?
+  isTeamOptOut     Boolean?
+
+  bonuses           ContractBonus[]
+  salaries          SalaryByYear[]
+  capHits           CapHitByYear[]
+  deadCaps          DeadCapByYear[]
+  optOutYears       OptOutYear[]
+  restructureEvents RestructureEvent[]
+  clauses           ContractClause[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContractBonus {
+  id             String @id @default(uuid())
+  contractId     String
+  year           Int
+  signingBonus   Int?
+  rosterBonus    Int?
+  workoutBonus   Int?
+  incentiveBonus Int?
+
+  contract PlayerContract @relation(fields: [contractId], references: [id])
+}
+
+model SalaryByYear {
+  id         String @id @default(uuid())
+  contractId String
+  year       Int
+  amount     Int
+
+  contract PlayerContract @relation(fields: [contractId], references: [id])
+}
+
+model CapHitByYear {
+  id         String @id @default(uuid())
+  contractId String
+  year       Int
+  amount     Int
+
+  contract PlayerContract @relation(fields: [contractId], references: [id])
+}
+
+model DeadCapByYear {
+  id         String @id @default(uuid())
+  contractId String @unique
+  year       Int
+  amount     Int
+
+  contract PlayerContract @relation(fields: [contractId], references: [id])
+}
+
+model OptOutYear {
+  id         String @id @default(uuid())
+  contractId String @unique
+  year       Int
+
+  contract PlayerContract @relation(fields: [contractId], references: [id])
+}
+
+model RestructureEvent {
+  id                     String    @id @default(uuid())
+  contractId             String    @unique
+  year                   Int?
+  date                   DateTime?
+  amountConvertedToBonus Int?
+  newCapHit              Int?
+  newDeadCap             Int?
+
+  contract PlayerContract @relation(fields: [contractId], references: [id])
+}
+
+model ContractClause {
+  id                      String   @id @default(uuid())
+  contractId              String   @unique
+  noTradeClause           Boolean?
+  injuryGuarantee         Boolean?
+  restructureEligible     Boolean?
+  earlyTerminationPenalty Float? // % of remaining contract
+
+  contract           PlayerContract    @relation(fields: [contractId], references: [id])
+  performanceBonusId String?           @unique
+  performanceBonus   PerformanceBonus?
+  rosterBonusId      String?           @unique
+  rosterBonus        RosterBonus?
+  workoutBonusId     String?           @unique
+  workoutBonus       WorkoutBonus?
+  optionBonusId      String?           @unique
+  optionBonus        OptionBonus?
+}
+
+model PerformanceBonus {
+  id                String @id @default(uuid())
+  clauseId          String @unique
+  proBowl           Int?
+  allPro            Int?
+  mvp               Int?
+  superBowlMVP      Int?
+  playoffAppearance Int?
+
+  clauses        ContractClause @relation(fields: [clauseId], references: [id])
+  statMilestones StatMilestone?
+}
+
+model StatMilestone {
+  id            String @id @default(uuid())
+  performanceId String @unique
+  yards         Int?
+  touchdowns    Int?
+  sacks         Int?
+  interceptions Int?
+
+  performanceBonus PerformanceBonus @relation(fields: [performanceId], references: [id])
+}
+
+model RosterBonus {
+  id       String   @id @default(uuid())
+  clauseId String   @unique
+  amount   Int?
+  perGame  Boolean?
+
+  clause ContractClause @relation(fields: [clauseId], references: [id])
+}
+
+model WorkoutBonus {
+  id          String @id @default(uuid())
+  clauseId    String @unique
+  amount      Int?
+  minWorkouts Int?
+
+  clause ContractClause @relation(fields: [clauseId], references: [id])
+}
+
+model OptionBonus {
+  id       String      @id @default(uuid())
+  clauseId String      @unique
+  year     Int?
+  amount   Int?
+  type     OptionType?
+
+  clause ContractClause @relation(fields: [clauseId], references: [id])
+}
+
+model Agent {
+  id                String   @id @default(uuid())
+  firstName         String
+  lastName          String
+  agencyName        String?
+  reputation        Int?
+  yearsOfExperience Int?
+  players           Player[]
+}
+
+model Rating {
+  id       String  @id @default(uuid())
+  playerId String? @unique
+  player   Player?
+
+  // --- Base Athletic Traits ---
+  speed             Int?
+  acceleration      Int?
+  agility           Int?
+  changeOfDirection Int?
+  strength          Int?
+  impactPower       Int?
+  verticalJump      Int?
+  stamina           Int?
+  toughness         Int?
+  awareness         Int?
+  discipline        Int?
+  injuryRecovery    Int?
+
+  // --- Quarterback-Specific Traits ---
+  throwPower          Int?
+  throwAccuracyShort  Int?
+  throwAccuracyMedium Int?
+  throwAccuracyDeep   Int?
+  throwOnRun          Int?
+  playAction          Int?
+  pocketPresence      Int?
+  releaseTime         Int?
+  decisionMaking      Int?
+  scrambling          Int?
+  breakSack           Int?
+  fieldVision         Int?
+
+  // --- Ball Handling ---
+  ballSecurity      Int?
+  ballCarrierVision Int?
+
+  // --- Running Traits ---
+  breakTackle         Int?
+  topBallCarrierSpeed Int?
+  trucking            Int?
+  elusiveness         Int?
+  stiffArm            Int?
+  spinMove            Int?
+  jukeMove            Int?
+  shortYardage        Int?
+  goalLine            Int?
+  openFieldRunning    Int?
+
+  // --- Receiving Skills ---
+  catching         Int?
+  catchInTraffic   Int?
+  spectacularCatch Int?
+  contestedCatches Int?
+  yardsAfterCatch  Int?
+  jumpBallTiming   Int?
+
+  // --- Route Running ---
+  routeRunning Int?
+  shortRoute   Int?
+  mediumRoute  Int?
+  deepRoute    Int?
+  separation   Int?
+  release      Int?
+
+  // --- Blocking Skills ---
+  runBlocking        Int?
+  passBlocking       Int?
+  pullBlocking       Int?
+  scrambleBlocking   Int?
+  playActionBlocking Int?
+  screenBlocking     Int?
+  leadBlocking       Int?
+
+  // --- Defensive Skills ---
+  tackling              Int?
+  blockShedding         Int?
+  blitzing              Int?
+  playRecognition       Int?
+  openFieldTackling     Int?
+  coverageAgainstTEsRBs Int?
+  coverageAgainstSlot   Int?
+  deepCoverage          Int?
+  runDefense            Int?
+
+  // --- Defensive Line Skills ---
+  passRush                 Int?
+  finessePassRush          Int?
+  powerPassRush            Int?
+  runStopping              Int?
+  penetration              Int?
+  edgeSetting              Int?
+  disengagement            Int?
+  offensiveLineRecognition Int?
+
+  // --- Linebacker Skills ---
+  hitPower Int?
+
+  // --- Defensive Back Skills ---
+  pressCoverage   Int?
+  offBallCoverage Int?
+  manCoverage     Int?
+  zoneCoverage    Int?
+  ballHawking     Int?
+  interceptions   Int?
+  passDeflection  Int?
+
+  // --- Kicking/Punting Skills ---
+  kickPower         Int?
+  kickAccuracy      Int?
+  puntPower         Int?
+  puntAccuracy      Int?
+  onsideKickAbility Int?
+
+  // --- Kick Return/Punt Return Skills ---
+  kickReturnVision Int?
+  puntReturnVision Int?
+}
+
+model Stat {
+  id       String  @id @default(uuid())
+  season   Int?
+  playerId String? @unique
+  player   Player?
+
+  gamesPlayed  Int?
+  gamesStarted Int?
+  snaps        Int?
+
+  // Rushing
+  rushingAttempts   Int?
+  rushingYards      Int?
+  yardsPerCarry     Float?
+  yardsAfterContact Int?
+  yardsPerGame      Float?
+  rushingLong       Int?
+  rushingTouchdowns Int?
+  fumblesLost       Int?
+
+  // Receiving
+  receptions          Int?
+  receivingYards      Int?
+  yardsPerReception   Float?
+  yardsAfterCatch     Int?
+  yardsPerTarget      Float?
+  airYards            Int?
+  receivingLong       Int?
+  targets             Int?
+  receivingTouchdowns Int?
+  drops               Int?
+
+  // Passing
+  passingAttempts      Int?
+  passingCompletions   Int?
+  passingYards         Int?
+  yardsPerPass         Float?
+  yardsPerCompletion   Float?
+  completionPercentage Float?
+  passingTouchdowns    Int?
+  interceptions        Int?
+  sacksTaken           Int?
+  passerRating         Float?
+
+  // Blocking (OL)
+  pancakes       Int?
+  sacksAllowed   Int?
+  hurriesAllowed Int?
+
+  // Defense
+  tackles             Int?
+  tacklesForLoss      Int?
+  sacks               Int?
+  interceptionsMade   Int?
+  forcedFumbles       Int?
+  fumbleRecoveries    Int?
+  passesDefended      Int?
+  defensiveTouchdowns Int?
+
+  // Special Teams
+  fieldGoalsMade         Int?
+  fieldGoalsAttempted    Int?
+  extraPointsMade        Int?
+  extraPointsAttempted   Int?
+  punts                  Int?
+  puntYards              Int?
+  kickReturns            Int?
+  kickReturnYards        Int?
+  puntReturns            Int?
+  puntReturnYards        Int?
+  specialTeamsTouchdowns Int?
+
+  // Penalties
+  penaltiesCommitted Int?
+  penaltyYards       Int?
+
+  @@unique([playerId, season])
+}
+
+model ContractDesires {
+  id              String   @id @default(uuid())
+  years           Int?
+  averageSalary   Int?
+  totalGuaranteed Int?
+  bonuses         Json?
+  tradeClause     Boolean?
+  injuryGuarantee Boolean?
+  rosterBonus     Json?
+  workoutBonus    Json?
+  incentives      Json?
+  optOutYears     Int[]
+  isPlayerOptOut  Boolean?
+  isTeamOptOut    Boolean?
+  playerId        String?  @unique
+  player          Player[]
+}
