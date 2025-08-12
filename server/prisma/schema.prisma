@@ -14,6 +14,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum StrategyEnum {
+  Rebuild
+  Contend
+  WinNow
+}
+
 enum PlayerRoleEnum {
   STARTER
   ROLE_PLAYER
@@ -357,27 +363,16 @@ enum PlayerPositionEnum {
   FB
   WR
   TE
-  LT
-  LG
+  OT
+  OG
   C
-  RG
-  RT
   DE
   DT
-  NT
-  EDGE
   LB
-  MLB
-  OLB
-  ILB
   CB
-  FS
-  SS
+  S
   K
   P
-  LS
-  KR
-  PR
 }
 
 enum FinancialHealthEnum {
@@ -410,8 +405,10 @@ model Player {
   id        String @id @default(uuid())
   firstName String
   lastName  String
+  fullName  String
   age       Int
   college   String
+  jerseyNumber String
 
   heightInInches Int
   weightInPounds Int
@@ -507,7 +504,11 @@ model Team {
   nickname     String  @unique
   location     String  @unique
   abbreviation String  @unique
+  stadium      String
   logoUrl      String?
+  colorPrimary String? // hex color code
+  colorSecondary String? // hex color code
+  colorTertiary String? // hex color code
 
   division   DivisionEnum
   conference ConferenceEnum
@@ -519,12 +520,11 @@ model Team {
   injuredReserve Player[] @relation("InjuredReserve")
   suspendedList  Player[] @relation("SuspendedList")
 
-  playerContracts PlayerContract[] @relation("TeamToContracts")
-
   overallRating   Int
   offensiveScheme OffensiveSchemeEnum
   defensiveScheme DefensiveSchemeEnum
   teamNeeds       PlayerPositionEnum[]
+  strategy         StrategyEnum
 
   wins                 Int
   losses               Int
@@ -535,10 +535,10 @@ model Team {
   superBowlAppearances Int
   championships        Int
 
-  capSpace        Int
   capLimit        Int
   totalPayroll    Int
   financialHealth FinancialHealthEnum
+  playerContracts PlayerContract[] @relation("TeamToContracts")
 
   yearFounded    Int
   allTimeWins    Int

@@ -14,8 +14,10 @@ export interface Player {
   id?: string;
   firstName?: string;
   lastName?: string;
+  fullName?: string;
   age?: number;
   college?: string;
+  jerseyNumber?: number;
 
   // --- Physical Attributes ---
   heightInInches?: number;
@@ -27,6 +29,7 @@ export interface Player {
   injuredReserveTeamId?: string; // Current injured reserve team ID
   suspendedListTeamId?: string; // Current suspended list team ID
   position?: PlayerPositionEnum;
+  positionAbbreviation?: string; // Original position abbreviation from data source
   expectedRole?: PlayerRoleEnum; // Expected role (e.g., starter, backup)
   actualRole?: PlayerRoleEnum; // Actual role on the team
   isStarter?: boolean;

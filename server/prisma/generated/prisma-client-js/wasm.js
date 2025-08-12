@@ -124,6 +124,7 @@ exports.Prisma.PlayerScalarFieldEnum = {
   id: 'id',
   firstName: 'firstName',
   lastName: 'lastName',
+  fullName: 'fullName',
   age: 'age',
   college: 'college',
   heightInInches: 'heightInInches',
@@ -188,13 +189,18 @@ exports.Prisma.TeamScalarFieldEnum = {
   nickname: 'nickname',
   location: 'location',
   abbreviation: 'abbreviation',
+  stadium: 'stadium',
   logoUrl: 'logoUrl',
+  colorPrimary: 'colorPrimary',
+  colorSecondary: 'colorSecondary',
+  colorTertiary: 'colorTertiary',
   division: 'division',
   conference: 'conference',
   overallRating: 'overallRating',
   offensiveScheme: 'offensiveScheme',
   defensiveScheme: 'defensiveScheme',
   teamNeeds: 'teamNeeds',
+  strategy: 'strategy',
   wins: 'wins',
   losses: 'losses',
   ties: 'ties',
@@ -203,7 +209,6 @@ exports.Prisma.TeamScalarFieldEnum = {
   playoffAppearances: 'playoffAppearances',
   superBowlAppearances: 'superBowlAppearances',
   championships: 'championships',
-  capSpace: 'capSpace',
   capLimit: 'capLimit',
   totalPayroll: 'totalPayroll',
   financialHealth: 'financialHealth',
@@ -919,6 +924,12 @@ exports.DefensiveSchemeEnum = exports.$Enums.DefensiveSchemeEnum = {
   MULTIPLE: 'MULTIPLE',
   MAN_BLITZ_HEAVY: 'MAN_BLITZ_HEAVY',
   ZONE_HEAVY: 'ZONE_HEAVY'
+};
+
+exports.StrategyEnum = exports.$Enums.StrategyEnum = {
+  Rebuild: 'Rebuild',
+  Contend: 'Contend',
+  WinNow: 'WinNow'
 };
 
 exports.FinancialHealthEnum = exports.$Enums.FinancialHealthEnum = {

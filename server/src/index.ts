@@ -8,11 +8,6 @@ dotenv.config();
 // Import routes
 import playerRoutes from './routes/playerRoutes';
 
-// Initialize Prisma Client
-import PrismaClient from './prisma/client';
-
-const prisma = new PrismaClient();
-
 // Initialize express app
 const app = express();
 const PORT = process.env.PORT || 5000;

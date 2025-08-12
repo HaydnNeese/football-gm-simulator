@@ -113,7 +113,16 @@ export type ContractDesires = $Result.DefaultSelection<Prisma.$ContractDesiresPa
  * Enums
  */
 export namespace $Enums {
-  export const PlayerRoleEnum: {
+  export const StrategyEnum: {
+  Rebuild: 'Rebuild',
+  Contend: 'Contend',
+  WinNow: 'WinNow'
+};
+
+export type StrategyEnum = (typeof StrategyEnum)[keyof typeof StrategyEnum]
+
+
+export const PlayerRoleEnum: {
   STARTER: 'STARTER',
   ROLE_PLAYER: 'ROLE_PLAYER',
   BACKUP: 'BACKUP',
@@ -547,6 +556,10 @@ export const OptionType: {
 export type OptionType = (typeof OptionType)[keyof typeof OptionType]
 
 }
+
+export type StrategyEnum = $Enums.StrategyEnum
+
+export const StrategyEnum: typeof $Enums.StrategyEnum
 
 export type PlayerRoleEnum = $Enums.PlayerRoleEnum
 
@@ -3273,6 +3286,7 @@ export namespace Prisma {
     id: string | null
     firstName: string | null
     lastName: string | null
+    fullName: string | null
     age: number | null
     college: string | null
     heightInInches: number | null
@@ -3330,6 +3344,7 @@ export namespace Prisma {
     id: string | null
     firstName: string | null
     lastName: string | null
+    fullName: string | null
     age: number | null
     college: string | null
     heightInInches: number | null
@@ -3387,6 +3402,7 @@ export namespace Prisma {
     id: number
     firstName: number
     lastName: number
+    fullName: number
     age: number
     college: number
     heightInInches: number
@@ -3493,6 +3509,7 @@ export namespace Prisma {
     id?: true
     firstName?: true
     lastName?: true
+    fullName?: true
     age?: true
     college?: true
     heightInInches?: true
@@ -3550,6 +3567,7 @@ export namespace Prisma {
     id?: true
     firstName?: true
     lastName?: true
+    fullName?: true
     age?: true
     college?: true
     heightInInches?: true
@@ -3607,6 +3625,7 @@ export namespace Prisma {
     id?: true
     firstName?: true
     lastName?: true
+    fullName?: true
     age?: true
     college?: true
     heightInInches?: true
@@ -3756,6 +3775,7 @@ export namespace Prisma {
     id: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -3837,6 +3857,7 @@ export namespace Prisma {
     id?: boolean
     firstName?: boolean
     lastName?: boolean
+    fullName?: boolean
     age?: boolean
     college?: boolean
     heightInInches?: boolean
@@ -3908,6 +3929,7 @@ export namespace Prisma {
     id?: boolean
     firstName?: boolean
     lastName?: boolean
+    fullName?: boolean
     age?: boolean
     college?: boolean
     heightInInches?: boolean
@@ -3978,6 +4000,7 @@ export namespace Prisma {
     id?: boolean
     firstName?: boolean
     lastName?: boolean
+    fullName?: boolean
     age?: boolean
     college?: boolean
     heightInInches?: boolean
@@ -4048,6 +4071,7 @@ export namespace Prisma {
     id?: boolean
     firstName?: boolean
     lastName?: boolean
+    fullName?: boolean
     age?: boolean
     college?: boolean
     heightInInches?: boolean
@@ -4106,7 +4130,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PlayerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "age" | "college" | "heightInInches" | "weightInPounds" | "teamId" | "practiceSquadTeamId" | "injuredReserveTeamId" | "suspendedListTeamId" | "currentContractId" | "agentId" | "ratingsId" | "statsId" | "position" | "expectedRole" | "actualRole" | "recordsHeld" | "currentInjury" | "injuryHistory" | "personalityTraits" | "offFieldConcerns" | "pastEvents" | "isStarter" | "isCaptain" | "isFreeAgent" | "isRetired" | "isSuspended" | "isPracticeSquad" | "isTradeBlock" | "offense" | "defense" | "specialTeams" | "draftYear" | "draftRound" | "isRecordHolder" | "contractDesiresId" | "contractNegotiationStatus" | "lastContractUpdate" | "performanceRating" | "impactRating" | "potential" | "experience" | "isInjured" | "injuryProneness" | "expectedReturnFromInjury" | "morale" | "leadership" | "adaptability" | "workEthic" | "consistency" | "clutchFactor" | "footballIQ" | "popularity" | "trainingFocus" | "trainingProgress" | "createdAt" | "updatedAt", ExtArgs["result"]["player"]>
+  export type PlayerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "fullName" | "age" | "college" | "heightInInches" | "weightInPounds" | "teamId" | "practiceSquadTeamId" | "injuredReserveTeamId" | "suspendedListTeamId" | "currentContractId" | "agentId" | "ratingsId" | "statsId" | "position" | "expectedRole" | "actualRole" | "recordsHeld" | "currentInjury" | "injuryHistory" | "personalityTraits" | "offFieldConcerns" | "pastEvents" | "isStarter" | "isCaptain" | "isFreeAgent" | "isRetired" | "isSuspended" | "isPracticeSquad" | "isTradeBlock" | "offense" | "defense" | "specialTeams" | "draftYear" | "draftRound" | "isRecordHolder" | "contractDesiresId" | "contractNegotiationStatus" | "lastContractUpdate" | "performanceRating" | "impactRating" | "potential" | "experience" | "isInjured" | "injuryProneness" | "expectedReturnFromInjury" | "morale" | "leadership" | "adaptability" | "workEthic" | "consistency" | "clutchFactor" | "footballIQ" | "popularity" | "trainingFocus" | "trainingProgress" | "createdAt" | "updatedAt", ExtArgs["result"]["player"]>
   export type PlayerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     team?: boolean | Player$teamArgs<ExtArgs>
     practiceSquadTeam?: boolean | Player$practiceSquadTeamArgs<ExtArgs>
@@ -4156,6 +4180,7 @@ export namespace Prisma {
       id: string
       firstName: string
       lastName: string
+      fullName: string
       age: number
       college: string
       heightInInches: number
@@ -4647,6 +4672,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Player", 'String'>
     readonly firstName: FieldRef<"Player", 'String'>
     readonly lastName: FieldRef<"Player", 'String'>
+    readonly fullName: FieldRef<"Player", 'String'>
     readonly age: FieldRef<"Player", 'Int'>
     readonly college: FieldRef<"Player", 'String'>
     readonly heightInInches: FieldRef<"Player", 'Int'>
@@ -5310,7 +5336,6 @@ export namespace Prisma {
     playoffAppearances: number | null
     superBowlAppearances: number | null
     championships: number | null
-    capSpace: number | null
     capLimit: number | null
     totalPayroll: number | null
     yearFounded: number | null
@@ -5332,7 +5357,6 @@ export namespace Prisma {
     playoffAppearances: number | null
     superBowlAppearances: number | null
     championships: number | null
-    capSpace: number | null
     capLimit: number | null
     totalPayroll: number | null
     yearFounded: number | null
@@ -5350,12 +5374,17 @@ export namespace Prisma {
     nickname: string | null
     location: string | null
     abbreviation: string | null
+    stadium: string | null
     logoUrl: string | null
+    colorPrimary: string | null
+    colorSecondary: string | null
+    colorTertiary: string | null
     division: $Enums.DivisionEnum | null
     conference: $Enums.ConferenceEnum | null
     overallRating: number | null
     offensiveScheme: $Enums.OffensiveSchemeEnum | null
     defensiveScheme: $Enums.DefensiveSchemeEnum | null
+    strategy: $Enums.StrategyEnum | null
     wins: number | null
     losses: number | null
     ties: number | null
@@ -5364,7 +5393,6 @@ export namespace Prisma {
     playoffAppearances: number | null
     superBowlAppearances: number | null
     championships: number | null
-    capSpace: number | null
     capLimit: number | null
     totalPayroll: number | null
     financialHealth: $Enums.FinancialHealthEnum | null
@@ -5382,12 +5410,17 @@ export namespace Prisma {
     nickname: string | null
     location: string | null
     abbreviation: string | null
+    stadium: string | null
     logoUrl: string | null
+    colorPrimary: string | null
+    colorSecondary: string | null
+    colorTertiary: string | null
     division: $Enums.DivisionEnum | null
     conference: $Enums.ConferenceEnum | null
     overallRating: number | null
     offensiveScheme: $Enums.OffensiveSchemeEnum | null
     defensiveScheme: $Enums.DefensiveSchemeEnum | null
+    strategy: $Enums.StrategyEnum | null
     wins: number | null
     losses: number | null
     ties: number | null
@@ -5396,7 +5429,6 @@ export namespace Prisma {
     playoffAppearances: number | null
     superBowlAppearances: number | null
     championships: number | null
-    capSpace: number | null
     capLimit: number | null
     totalPayroll: number | null
     financialHealth: $Enums.FinancialHealthEnum | null
@@ -5414,13 +5446,18 @@ export namespace Prisma {
     nickname: number
     location: number
     abbreviation: number
+    stadium: number
     logoUrl: number
+    colorPrimary: number
+    colorSecondary: number
+    colorTertiary: number
     division: number
     conference: number
     overallRating: number
     offensiveScheme: number
     defensiveScheme: number
     teamNeeds: number
+    strategy: number
     wins: number
     losses: number
     ties: number
@@ -5429,7 +5466,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: number
@@ -5455,7 +5491,6 @@ export namespace Prisma {
     playoffAppearances?: true
     superBowlAppearances?: true
     championships?: true
-    capSpace?: true
     capLimit?: true
     totalPayroll?: true
     yearFounded?: true
@@ -5477,7 +5512,6 @@ export namespace Prisma {
     playoffAppearances?: true
     superBowlAppearances?: true
     championships?: true
-    capSpace?: true
     capLimit?: true
     totalPayroll?: true
     yearFounded?: true
@@ -5495,12 +5529,17 @@ export namespace Prisma {
     nickname?: true
     location?: true
     abbreviation?: true
+    stadium?: true
     logoUrl?: true
+    colorPrimary?: true
+    colorSecondary?: true
+    colorTertiary?: true
     division?: true
     conference?: true
     overallRating?: true
     offensiveScheme?: true
     defensiveScheme?: true
+    strategy?: true
     wins?: true
     losses?: true
     ties?: true
@@ -5509,7 +5548,6 @@ export namespace Prisma {
     playoffAppearances?: true
     superBowlAppearances?: true
     championships?: true
-    capSpace?: true
     capLimit?: true
     totalPayroll?: true
     financialHealth?: true
@@ -5527,12 +5565,17 @@ export namespace Prisma {
     nickname?: true
     location?: true
     abbreviation?: true
+    stadium?: true
     logoUrl?: true
+    colorPrimary?: true
+    colorSecondary?: true
+    colorTertiary?: true
     division?: true
     conference?: true
     overallRating?: true
     offensiveScheme?: true
     defensiveScheme?: true
+    strategy?: true
     wins?: true
     losses?: true
     ties?: true
@@ -5541,7 +5584,6 @@ export namespace Prisma {
     playoffAppearances?: true
     superBowlAppearances?: true
     championships?: true
-    capSpace?: true
     capLimit?: true
     totalPayroll?: true
     financialHealth?: true
@@ -5559,13 +5601,18 @@ export namespace Prisma {
     nickname?: true
     location?: true
     abbreviation?: true
+    stadium?: true
     logoUrl?: true
+    colorPrimary?: true
+    colorSecondary?: true
+    colorTertiary?: true
     division?: true
     conference?: true
     overallRating?: true
     offensiveScheme?: true
     defensiveScheme?: true
     teamNeeds?: true
+    strategy?: true
     wins?: true
     losses?: true
     ties?: true
@@ -5574,7 +5621,6 @@ export namespace Prisma {
     playoffAppearances?: true
     superBowlAppearances?: true
     championships?: true
-    capSpace?: true
     capLimit?: true
     totalPayroll?: true
     financialHealth?: true
@@ -5681,13 +5727,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl: string | null
+    colorPrimary: string | null
+    colorSecondary: string | null
+    colorTertiary: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds: $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -5696,7 +5747,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -5735,13 +5785,18 @@ export namespace Prisma {
     nickname?: boolean
     location?: boolean
     abbreviation?: boolean
+    stadium?: boolean
     logoUrl?: boolean
+    colorPrimary?: boolean
+    colorSecondary?: boolean
+    colorTertiary?: boolean
     division?: boolean
     conference?: boolean
     overallRating?: boolean
     offensiveScheme?: boolean
     defensiveScheme?: boolean
     teamNeeds?: boolean
+    strategy?: boolean
     wins?: boolean
     losses?: boolean
     ties?: boolean
@@ -5750,7 +5805,6 @@ export namespace Prisma {
     playoffAppearances?: boolean
     superBowlAppearances?: boolean
     championships?: boolean
-    capSpace?: boolean
     capLimit?: boolean
     totalPayroll?: boolean
     financialHealth?: boolean
@@ -5776,13 +5830,18 @@ export namespace Prisma {
     nickname?: boolean
     location?: boolean
     abbreviation?: boolean
+    stadium?: boolean
     logoUrl?: boolean
+    colorPrimary?: boolean
+    colorSecondary?: boolean
+    colorTertiary?: boolean
     division?: boolean
     conference?: boolean
     overallRating?: boolean
     offensiveScheme?: boolean
     defensiveScheme?: boolean
     teamNeeds?: boolean
+    strategy?: boolean
     wins?: boolean
     losses?: boolean
     ties?: boolean
@@ -5791,7 +5850,6 @@ export namespace Prisma {
     playoffAppearances?: boolean
     superBowlAppearances?: boolean
     championships?: boolean
-    capSpace?: boolean
     capLimit?: boolean
     totalPayroll?: boolean
     financialHealth?: boolean
@@ -5811,13 +5869,18 @@ export namespace Prisma {
     nickname?: boolean
     location?: boolean
     abbreviation?: boolean
+    stadium?: boolean
     logoUrl?: boolean
+    colorPrimary?: boolean
+    colorSecondary?: boolean
+    colorTertiary?: boolean
     division?: boolean
     conference?: boolean
     overallRating?: boolean
     offensiveScheme?: boolean
     defensiveScheme?: boolean
     teamNeeds?: boolean
+    strategy?: boolean
     wins?: boolean
     losses?: boolean
     ties?: boolean
@@ -5826,7 +5889,6 @@ export namespace Prisma {
     playoffAppearances?: boolean
     superBowlAppearances?: boolean
     championships?: boolean
-    capSpace?: boolean
     capLimit?: boolean
     totalPayroll?: boolean
     financialHealth?: boolean
@@ -5846,13 +5908,18 @@ export namespace Prisma {
     nickname?: boolean
     location?: boolean
     abbreviation?: boolean
+    stadium?: boolean
     logoUrl?: boolean
+    colorPrimary?: boolean
+    colorSecondary?: boolean
+    colorTertiary?: boolean
     division?: boolean
     conference?: boolean
     overallRating?: boolean
     offensiveScheme?: boolean
     defensiveScheme?: boolean
     teamNeeds?: boolean
+    strategy?: boolean
     wins?: boolean
     losses?: boolean
     ties?: boolean
@@ -5861,7 +5928,6 @@ export namespace Prisma {
     playoffAppearances?: boolean
     superBowlAppearances?: boolean
     championships?: boolean
-    capSpace?: boolean
     capLimit?: boolean
     totalPayroll?: boolean
     financialHealth?: boolean
@@ -5875,7 +5941,7 @@ export namespace Prisma {
     rivalTeams?: boolean
   }
 
-  export type TeamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "nickname" | "location" | "abbreviation" | "logoUrl" | "division" | "conference" | "overallRating" | "offensiveScheme" | "defensiveScheme" | "teamNeeds" | "wins" | "losses" | "ties" | "currentStreak" | "longestWinningStreak" | "playoffAppearances" | "superBowlAppearances" | "championships" | "capSpace" | "capLimit" | "totalPayroll" | "financialHealth" | "yearFounded" | "allTimeWins" | "allTimeLosses" | "allTimeTies" | "retiredNumbers" | "fanBaseSize" | "prestige" | "rivalTeams", ExtArgs["result"]["team"]>
+  export type TeamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "nickname" | "location" | "abbreviation" | "stadium" | "logoUrl" | "colorPrimary" | "colorSecondary" | "colorTertiary" | "division" | "conference" | "overallRating" | "offensiveScheme" | "defensiveScheme" | "teamNeeds" | "strategy" | "wins" | "losses" | "ties" | "currentStreak" | "longestWinningStreak" | "playoffAppearances" | "superBowlAppearances" | "championships" | "capLimit" | "totalPayroll" | "financialHealth" | "yearFounded" | "allTimeWins" | "allTimeLosses" | "allTimeTies" | "retiredNumbers" | "fanBaseSize" | "prestige" | "rivalTeams", ExtArgs["result"]["team"]>
   export type TeamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     players?: boolean | Team$playersArgs<ExtArgs>
     practiceSquad?: boolean | Team$practiceSquadArgs<ExtArgs>
@@ -5902,13 +5968,18 @@ export namespace Prisma {
       nickname: string
       location: string
       abbreviation: string
+      stadium: string
       logoUrl: string | null
+      colorPrimary: string | null
+      colorSecondary: string | null
+      colorTertiary: string | null
       division: $Enums.DivisionEnum
       conference: $Enums.ConferenceEnum
       overallRating: number
       offensiveScheme: $Enums.OffensiveSchemeEnum
       defensiveScheme: $Enums.DefensiveSchemeEnum
       teamNeeds: $Enums.PlayerPositionEnum[]
+      strategy: $Enums.StrategyEnum
       wins: number
       losses: number
       ties: number
@@ -5917,7 +5988,6 @@ export namespace Prisma {
       playoffAppearances: number
       superBowlAppearances: number
       championships: number
-      capSpace: number
       capLimit: number
       totalPayroll: number
       financialHealth: $Enums.FinancialHealthEnum
@@ -6362,13 +6432,18 @@ export namespace Prisma {
     readonly nickname: FieldRef<"Team", 'String'>
     readonly location: FieldRef<"Team", 'String'>
     readonly abbreviation: FieldRef<"Team", 'String'>
+    readonly stadium: FieldRef<"Team", 'String'>
     readonly logoUrl: FieldRef<"Team", 'String'>
+    readonly colorPrimary: FieldRef<"Team", 'String'>
+    readonly colorSecondary: FieldRef<"Team", 'String'>
+    readonly colorTertiary: FieldRef<"Team", 'String'>
     readonly division: FieldRef<"Team", 'DivisionEnum'>
     readonly conference: FieldRef<"Team", 'ConferenceEnum'>
     readonly overallRating: FieldRef<"Team", 'Int'>
     readonly offensiveScheme: FieldRef<"Team", 'OffensiveSchemeEnum'>
     readonly defensiveScheme: FieldRef<"Team", 'DefensiveSchemeEnum'>
     readonly teamNeeds: FieldRef<"Team", 'PlayerPositionEnum[]'>
+    readonly strategy: FieldRef<"Team", 'StrategyEnum'>
     readonly wins: FieldRef<"Team", 'Int'>
     readonly losses: FieldRef<"Team", 'Int'>
     readonly ties: FieldRef<"Team", 'Int'>
@@ -6377,7 +6452,6 @@ export namespace Prisma {
     readonly playoffAppearances: FieldRef<"Team", 'Int'>
     readonly superBowlAppearances: FieldRef<"Team", 'Int'>
     readonly championships: FieldRef<"Team", 'Int'>
-    readonly capSpace: FieldRef<"Team", 'Int'>
     readonly capLimit: FieldRef<"Team", 'Int'>
     readonly totalPayroll: FieldRef<"Team", 'Int'>
     readonly financialHealth: FieldRef<"Team", 'FinancialHealthEnum'>
@@ -28661,6 +28735,7 @@ export namespace Prisma {
     id: 'id',
     firstName: 'firstName',
     lastName: 'lastName',
+    fullName: 'fullName',
     age: 'age',
     college: 'college',
     heightInInches: 'heightInInches',
@@ -28728,13 +28803,18 @@ export namespace Prisma {
     nickname: 'nickname',
     location: 'location',
     abbreviation: 'abbreviation',
+    stadium: 'stadium',
     logoUrl: 'logoUrl',
+    colorPrimary: 'colorPrimary',
+    colorSecondary: 'colorSecondary',
+    colorTertiary: 'colorTertiary',
     division: 'division',
     conference: 'conference',
     overallRating: 'overallRating',
     offensiveScheme: 'offensiveScheme',
     defensiveScheme: 'defensiveScheme',
     teamNeeds: 'teamNeeds',
+    strategy: 'strategy',
     wins: 'wins',
     losses: 'losses',
     ties: 'ties',
@@ -28743,7 +28823,6 @@ export namespace Prisma {
     playoffAppearances: 'playoffAppearances',
     superBowlAppearances: 'superBowlAppearances',
     championships: 'championships',
-    capSpace: 'capSpace',
     capLimit: 'capLimit',
     totalPayroll: 'totalPayroll',
     financialHealth: 'financialHealth',
@@ -29374,6 +29453,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'StrategyEnum'
+   */
+  export type EnumStrategyEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StrategyEnum'>
+    
+
+
+  /**
+   * Reference to a field of type 'StrategyEnum[]'
+   */
+  export type ListEnumStrategyEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StrategyEnum[]'>
+    
+
+
+  /**
    * Reference to a field of type 'FinancialHealthEnum'
    */
   export type EnumFinancialHealthEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinancialHealthEnum'>
@@ -29439,6 +29532,7 @@ export namespace Prisma {
     id?: StringFilter<"Player"> | string
     firstName?: StringFilter<"Player"> | string
     lastName?: StringFilter<"Player"> | string
+    fullName?: StringFilter<"Player"> | string
     age?: IntFilter<"Player"> | number
     college?: StringFilter<"Player"> | string
     heightInInches?: IntFilter<"Player"> | number
@@ -29510,6 +29604,7 @@ export namespace Prisma {
     id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    fullName?: SortOrder
     age?: SortOrder
     college?: SortOrder
     heightInInches?: SortOrder
@@ -29588,6 +29683,7 @@ export namespace Prisma {
     NOT?: PlayerWhereInput | PlayerWhereInput[]
     firstName?: StringFilter<"Player"> | string
     lastName?: StringFilter<"Player"> | string
+    fullName?: StringFilter<"Player"> | string
     age?: IntFilter<"Player"> | number
     college?: StringFilter<"Player"> | string
     heightInInches?: IntFilter<"Player"> | number
@@ -29655,6 +29751,7 @@ export namespace Prisma {
     id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    fullName?: SortOrder
     age?: SortOrder
     college?: SortOrder
     heightInInches?: SortOrder
@@ -29725,6 +29822,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Player"> | string
     firstName?: StringWithAggregatesFilter<"Player"> | string
     lastName?: StringWithAggregatesFilter<"Player"> | string
+    fullName?: StringWithAggregatesFilter<"Player"> | string
     age?: IntWithAggregatesFilter<"Player"> | number
     college?: StringWithAggregatesFilter<"Player"> | string
     heightInInches?: IntWithAggregatesFilter<"Player"> | number
@@ -29792,13 +29890,18 @@ export namespace Prisma {
     nickname?: StringFilter<"Team"> | string
     location?: StringFilter<"Team"> | string
     abbreviation?: StringFilter<"Team"> | string
+    stadium?: StringFilter<"Team"> | string
     logoUrl?: StringNullableFilter<"Team"> | string | null
+    colorPrimary?: StringNullableFilter<"Team"> | string | null
+    colorSecondary?: StringNullableFilter<"Team"> | string | null
+    colorTertiary?: StringNullableFilter<"Team"> | string | null
     division?: EnumDivisionEnumFilter<"Team"> | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFilter<"Team"> | $Enums.ConferenceEnum
     overallRating?: IntFilter<"Team"> | number
     offensiveScheme?: EnumOffensiveSchemeEnumFilter<"Team"> | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFilter<"Team"> | $Enums.DefensiveSchemeEnum
     teamNeeds?: EnumPlayerPositionEnumNullableListFilter<"Team">
+    strategy?: EnumStrategyEnumFilter<"Team"> | $Enums.StrategyEnum
     wins?: IntFilter<"Team"> | number
     losses?: IntFilter<"Team"> | number
     ties?: IntFilter<"Team"> | number
@@ -29807,7 +29910,6 @@ export namespace Prisma {
     playoffAppearances?: IntFilter<"Team"> | number
     superBowlAppearances?: IntFilter<"Team"> | number
     championships?: IntFilter<"Team"> | number
-    capSpace?: IntFilter<"Team"> | number
     capLimit?: IntFilter<"Team"> | number
     totalPayroll?: IntFilter<"Team"> | number
     financialHealth?: EnumFinancialHealthEnumFilter<"Team"> | $Enums.FinancialHealthEnum
@@ -29832,13 +29934,18 @@ export namespace Prisma {
     nickname?: SortOrder
     location?: SortOrder
     abbreviation?: SortOrder
+    stadium?: SortOrder
     logoUrl?: SortOrderInput | SortOrder
+    colorPrimary?: SortOrderInput | SortOrder
+    colorSecondary?: SortOrderInput | SortOrder
+    colorTertiary?: SortOrderInput | SortOrder
     division?: SortOrder
     conference?: SortOrder
     overallRating?: SortOrder
     offensiveScheme?: SortOrder
     defensiveScheme?: SortOrder
     teamNeeds?: SortOrder
+    strategy?: SortOrder
     wins?: SortOrder
     losses?: SortOrder
     ties?: SortOrder
@@ -29847,7 +29954,6 @@ export namespace Prisma {
     playoffAppearances?: SortOrder
     superBowlAppearances?: SortOrder
     championships?: SortOrder
-    capSpace?: SortOrder
     capLimit?: SortOrder
     totalPayroll?: SortOrder
     financialHealth?: SortOrder
@@ -29875,13 +29981,18 @@ export namespace Prisma {
     AND?: TeamWhereInput | TeamWhereInput[]
     OR?: TeamWhereInput[]
     NOT?: TeamWhereInput | TeamWhereInput[]
+    stadium?: StringFilter<"Team"> | string
     logoUrl?: StringNullableFilter<"Team"> | string | null
+    colorPrimary?: StringNullableFilter<"Team"> | string | null
+    colorSecondary?: StringNullableFilter<"Team"> | string | null
+    colorTertiary?: StringNullableFilter<"Team"> | string | null
     division?: EnumDivisionEnumFilter<"Team"> | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFilter<"Team"> | $Enums.ConferenceEnum
     overallRating?: IntFilter<"Team"> | number
     offensiveScheme?: EnumOffensiveSchemeEnumFilter<"Team"> | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFilter<"Team"> | $Enums.DefensiveSchemeEnum
     teamNeeds?: EnumPlayerPositionEnumNullableListFilter<"Team">
+    strategy?: EnumStrategyEnumFilter<"Team"> | $Enums.StrategyEnum
     wins?: IntFilter<"Team"> | number
     losses?: IntFilter<"Team"> | number
     ties?: IntFilter<"Team"> | number
@@ -29890,7 +30001,6 @@ export namespace Prisma {
     playoffAppearances?: IntFilter<"Team"> | number
     superBowlAppearances?: IntFilter<"Team"> | number
     championships?: IntFilter<"Team"> | number
-    capSpace?: IntFilter<"Team"> | number
     capLimit?: IntFilter<"Team"> | number
     totalPayroll?: IntFilter<"Team"> | number
     financialHealth?: EnumFinancialHealthEnumFilter<"Team"> | $Enums.FinancialHealthEnum
@@ -29915,13 +30025,18 @@ export namespace Prisma {
     nickname?: SortOrder
     location?: SortOrder
     abbreviation?: SortOrder
+    stadium?: SortOrder
     logoUrl?: SortOrderInput | SortOrder
+    colorPrimary?: SortOrderInput | SortOrder
+    colorSecondary?: SortOrderInput | SortOrder
+    colorTertiary?: SortOrderInput | SortOrder
     division?: SortOrder
     conference?: SortOrder
     overallRating?: SortOrder
     offensiveScheme?: SortOrder
     defensiveScheme?: SortOrder
     teamNeeds?: SortOrder
+    strategy?: SortOrder
     wins?: SortOrder
     losses?: SortOrder
     ties?: SortOrder
@@ -29930,7 +30045,6 @@ export namespace Prisma {
     playoffAppearances?: SortOrder
     superBowlAppearances?: SortOrder
     championships?: SortOrder
-    capSpace?: SortOrder
     capLimit?: SortOrder
     totalPayroll?: SortOrder
     financialHealth?: SortOrder
@@ -29958,13 +30072,18 @@ export namespace Prisma {
     nickname?: StringWithAggregatesFilter<"Team"> | string
     location?: StringWithAggregatesFilter<"Team"> | string
     abbreviation?: StringWithAggregatesFilter<"Team"> | string
+    stadium?: StringWithAggregatesFilter<"Team"> | string
     logoUrl?: StringNullableWithAggregatesFilter<"Team"> | string | null
+    colorPrimary?: StringNullableWithAggregatesFilter<"Team"> | string | null
+    colorSecondary?: StringNullableWithAggregatesFilter<"Team"> | string | null
+    colorTertiary?: StringNullableWithAggregatesFilter<"Team"> | string | null
     division?: EnumDivisionEnumWithAggregatesFilter<"Team"> | $Enums.DivisionEnum
     conference?: EnumConferenceEnumWithAggregatesFilter<"Team"> | $Enums.ConferenceEnum
     overallRating?: IntWithAggregatesFilter<"Team"> | number
     offensiveScheme?: EnumOffensiveSchemeEnumWithAggregatesFilter<"Team"> | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumWithAggregatesFilter<"Team"> | $Enums.DefensiveSchemeEnum
     teamNeeds?: EnumPlayerPositionEnumNullableListFilter<"Team">
+    strategy?: EnumStrategyEnumWithAggregatesFilter<"Team"> | $Enums.StrategyEnum
     wins?: IntWithAggregatesFilter<"Team"> | number
     losses?: IntWithAggregatesFilter<"Team"> | number
     ties?: IntWithAggregatesFilter<"Team"> | number
@@ -29973,7 +30092,6 @@ export namespace Prisma {
     playoffAppearances?: IntWithAggregatesFilter<"Team"> | number
     superBowlAppearances?: IntWithAggregatesFilter<"Team"> | number
     championships?: IntWithAggregatesFilter<"Team"> | number
-    capSpace?: IntWithAggregatesFilter<"Team"> | number
     capLimit?: IntWithAggregatesFilter<"Team"> | number
     totalPayroll?: IntWithAggregatesFilter<"Team"> | number
     financialHealth?: EnumFinancialHealthEnumWithAggregatesFilter<"Team"> | $Enums.FinancialHealthEnum
@@ -31815,6 +31933,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -31878,6 +31997,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -31941,6 +32061,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -32004,6 +32125,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -32067,6 +32189,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -32129,6 +32252,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -32183,6 +32307,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -32247,13 +32372,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -32262,7 +32392,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -32287,13 +32416,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -32302,7 +32436,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -32327,13 +32460,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -32342,7 +32480,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -32367,13 +32504,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -32382,7 +32524,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -32407,13 +32548,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -32422,7 +32568,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -32442,13 +32587,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -32457,7 +32607,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -32477,13 +32626,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -32492,7 +32646,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -34835,6 +34988,7 @@ export namespace Prisma {
     id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    fullName?: SortOrder
     age?: SortOrder
     college?: SortOrder
     heightInInches?: SortOrder
@@ -34918,6 +35072,7 @@ export namespace Prisma {
     id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    fullName?: SortOrder
     age?: SortOrder
     college?: SortOrder
     heightInInches?: SortOrder
@@ -34975,6 +35130,7 @@ export namespace Prisma {
     id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    fullName?: SortOrder
     age?: SortOrder
     college?: SortOrder
     heightInInches?: SortOrder
@@ -35229,6 +35385,13 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
+  export type EnumStrategyEnumFilter<$PrismaModel = never> = {
+    equals?: $Enums.StrategyEnum | EnumStrategyEnumFieldRefInput<$PrismaModel>
+    in?: $Enums.StrategyEnum[] | ListEnumStrategyEnumFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StrategyEnum[] | ListEnumStrategyEnumFieldRefInput<$PrismaModel>
+    not?: NestedEnumStrategyEnumFilter<$PrismaModel> | $Enums.StrategyEnum
+  }
+
   export type EnumFinancialHealthEnumFilter<$PrismaModel = never> = {
     equals?: $Enums.FinancialHealthEnum | EnumFinancialHealthEnumFieldRefInput<$PrismaModel>
     in?: $Enums.FinancialHealthEnum[] | ListEnumFinancialHealthEnumFieldRefInput<$PrismaModel>
@@ -35278,13 +35441,18 @@ export namespace Prisma {
     nickname?: SortOrder
     location?: SortOrder
     abbreviation?: SortOrder
+    stadium?: SortOrder
     logoUrl?: SortOrder
+    colorPrimary?: SortOrder
+    colorSecondary?: SortOrder
+    colorTertiary?: SortOrder
     division?: SortOrder
     conference?: SortOrder
     overallRating?: SortOrder
     offensiveScheme?: SortOrder
     defensiveScheme?: SortOrder
     teamNeeds?: SortOrder
+    strategy?: SortOrder
     wins?: SortOrder
     losses?: SortOrder
     ties?: SortOrder
@@ -35293,7 +35461,6 @@ export namespace Prisma {
     playoffAppearances?: SortOrder
     superBowlAppearances?: SortOrder
     championships?: SortOrder
-    capSpace?: SortOrder
     capLimit?: SortOrder
     totalPayroll?: SortOrder
     financialHealth?: SortOrder
@@ -35317,7 +35484,6 @@ export namespace Prisma {
     playoffAppearances?: SortOrder
     superBowlAppearances?: SortOrder
     championships?: SortOrder
-    capSpace?: SortOrder
     capLimit?: SortOrder
     totalPayroll?: SortOrder
     yearFounded?: SortOrder
@@ -35335,12 +35501,17 @@ export namespace Prisma {
     nickname?: SortOrder
     location?: SortOrder
     abbreviation?: SortOrder
+    stadium?: SortOrder
     logoUrl?: SortOrder
+    colorPrimary?: SortOrder
+    colorSecondary?: SortOrder
+    colorTertiary?: SortOrder
     division?: SortOrder
     conference?: SortOrder
     overallRating?: SortOrder
     offensiveScheme?: SortOrder
     defensiveScheme?: SortOrder
+    strategy?: SortOrder
     wins?: SortOrder
     losses?: SortOrder
     ties?: SortOrder
@@ -35349,7 +35520,6 @@ export namespace Prisma {
     playoffAppearances?: SortOrder
     superBowlAppearances?: SortOrder
     championships?: SortOrder
-    capSpace?: SortOrder
     capLimit?: SortOrder
     totalPayroll?: SortOrder
     financialHealth?: SortOrder
@@ -35367,12 +35537,17 @@ export namespace Prisma {
     nickname?: SortOrder
     location?: SortOrder
     abbreviation?: SortOrder
+    stadium?: SortOrder
     logoUrl?: SortOrder
+    colorPrimary?: SortOrder
+    colorSecondary?: SortOrder
+    colorTertiary?: SortOrder
     division?: SortOrder
     conference?: SortOrder
     overallRating?: SortOrder
     offensiveScheme?: SortOrder
     defensiveScheme?: SortOrder
+    strategy?: SortOrder
     wins?: SortOrder
     losses?: SortOrder
     ties?: SortOrder
@@ -35381,7 +35556,6 @@ export namespace Prisma {
     playoffAppearances?: SortOrder
     superBowlAppearances?: SortOrder
     championships?: SortOrder
-    capSpace?: SortOrder
     capLimit?: SortOrder
     totalPayroll?: SortOrder
     financialHealth?: SortOrder
@@ -35403,7 +35577,6 @@ export namespace Prisma {
     playoffAppearances?: SortOrder
     superBowlAppearances?: SortOrder
     championships?: SortOrder
-    capSpace?: SortOrder
     capLimit?: SortOrder
     totalPayroll?: SortOrder
     yearFounded?: SortOrder
@@ -35453,6 +35626,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumDefensiveSchemeEnumFilter<$PrismaModel>
     _max?: NestedEnumDefensiveSchemeEnumFilter<$PrismaModel>
+  }
+
+  export type EnumStrategyEnumWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StrategyEnum | EnumStrategyEnumFieldRefInput<$PrismaModel>
+    in?: $Enums.StrategyEnum[] | ListEnumStrategyEnumFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StrategyEnum[] | ListEnumStrategyEnumFieldRefInput<$PrismaModel>
+    not?: NestedEnumStrategyEnumWithAggregatesFilter<$PrismaModel> | $Enums.StrategyEnum
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStrategyEnumFilter<$PrismaModel>
+    _max?: NestedEnumStrategyEnumFilter<$PrismaModel>
   }
 
   export type EnumFinancialHealthEnumWithAggregatesFilter<$PrismaModel = never> = {
@@ -37410,6 +37593,10 @@ export namespace Prisma {
     push?: $Enums.PlayerPositionEnum | $Enums.PlayerPositionEnum[]
   }
 
+  export type EnumStrategyEnumFieldUpdateOperationsInput = {
+    set?: $Enums.StrategyEnum
+  }
+
   export type EnumFinancialHealthEnumFieldUpdateOperationsInput = {
     set?: $Enums.FinancialHealthEnum
   }
@@ -38688,6 +38875,13 @@ export namespace Prisma {
     not?: NestedEnumDefensiveSchemeEnumFilter<$PrismaModel> | $Enums.DefensiveSchemeEnum
   }
 
+  export type NestedEnumStrategyEnumFilter<$PrismaModel = never> = {
+    equals?: $Enums.StrategyEnum | EnumStrategyEnumFieldRefInput<$PrismaModel>
+    in?: $Enums.StrategyEnum[] | ListEnumStrategyEnumFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StrategyEnum[] | ListEnumStrategyEnumFieldRefInput<$PrismaModel>
+    not?: NestedEnumStrategyEnumFilter<$PrismaModel> | $Enums.StrategyEnum
+  }
+
   export type NestedEnumFinancialHealthEnumFilter<$PrismaModel = never> = {
     equals?: $Enums.FinancialHealthEnum | EnumFinancialHealthEnumFieldRefInput<$PrismaModel>
     in?: $Enums.FinancialHealthEnum[] | ListEnumFinancialHealthEnumFieldRefInput<$PrismaModel>
@@ -38733,6 +38927,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumDefensiveSchemeEnumFilter<$PrismaModel>
     _max?: NestedEnumDefensiveSchemeEnumFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStrategyEnumWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StrategyEnum | EnumStrategyEnumFieldRefInput<$PrismaModel>
+    in?: $Enums.StrategyEnum[] | ListEnumStrategyEnumFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StrategyEnum[] | ListEnumStrategyEnumFieldRefInput<$PrismaModel>
+    not?: NestedEnumStrategyEnumWithAggregatesFilter<$PrismaModel> | $Enums.StrategyEnum
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStrategyEnumFilter<$PrismaModel>
+    _max?: NestedEnumStrategyEnumFilter<$PrismaModel>
   }
 
   export type NestedEnumFinancialHealthEnumWithAggregatesFilter<$PrismaModel = never> = {
@@ -38820,13 +39024,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -38835,7 +39044,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -38859,13 +39067,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -38874,7 +39087,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -38903,13 +39115,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -38918,7 +39135,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -38942,13 +39158,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -38957,7 +39178,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -38986,13 +39206,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -39001,7 +39226,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -39025,13 +39249,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -39040,7 +39269,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -39069,13 +39297,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -39084,7 +39317,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -39108,13 +39340,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -39123,7 +39360,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -39596,13 +39832,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -39611,7 +39852,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -39635,13 +39875,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -39650,7 +39895,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -39685,13 +39929,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -39700,7 +39949,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -39724,13 +39972,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -39739,7 +39992,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -39774,13 +40026,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -39789,7 +40046,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -39813,13 +40069,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -39828,7 +40089,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -39863,13 +40123,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -39878,7 +40143,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -39902,13 +40166,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -39917,7 +40186,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -40402,6 +40670,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -40464,6 +40733,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -40536,6 +40806,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -40598,6 +40869,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -40670,6 +40942,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -40732,6 +41005,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -40804,6 +41078,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -40866,6 +41141,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -41017,6 +41293,7 @@ export namespace Prisma {
     id?: StringFilter<"Player"> | string
     firstName?: StringFilter<"Player"> | string
     lastName?: StringFilter<"Player"> | string
+    fullName?: StringFilter<"Player"> | string
     age?: IntFilter<"Player"> | number
     college?: StringFilter<"Player"> | string
     heightInInches?: IntFilter<"Player"> | number
@@ -41165,6 +41442,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -41227,6 +41505,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -41296,13 +41575,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -41311,7 +41595,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -41335,13 +41618,18 @@ export namespace Prisma {
     nickname: string
     location: string
     abbreviation: string
+    stadium: string
     logoUrl?: string | null
+    colorPrimary?: string | null
+    colorSecondary?: string | null
+    colorTertiary?: string | null
     division: $Enums.DivisionEnum
     conference: $Enums.ConferenceEnum
     overallRating: number
     offensiveScheme: $Enums.OffensiveSchemeEnum
     defensiveScheme: $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamCreateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy: $Enums.StrategyEnum
     wins: number
     losses: number
     ties: number
@@ -41350,7 +41638,6 @@ export namespace Prisma {
     playoffAppearances: number
     superBowlAppearances: number
     championships: number
-    capSpace: number
     capLimit: number
     totalPayroll: number
     financialHealth: $Enums.FinancialHealthEnum
@@ -41572,6 +41859,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -41634,6 +41922,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -41709,13 +41998,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -41724,7 +42018,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -41748,13 +42041,18 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     abbreviation?: StringFieldUpdateOperationsInput | string
+    stadium?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    colorPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorSecondary?: NullableStringFieldUpdateOperationsInput | string | null
+    colorTertiary?: NullableStringFieldUpdateOperationsInput | string | null
     division?: EnumDivisionEnumFieldUpdateOperationsInput | $Enums.DivisionEnum
     conference?: EnumConferenceEnumFieldUpdateOperationsInput | $Enums.ConferenceEnum
     overallRating?: IntFieldUpdateOperationsInput | number
     offensiveScheme?: EnumOffensiveSchemeEnumFieldUpdateOperationsInput | $Enums.OffensiveSchemeEnum
     defensiveScheme?: EnumDefensiveSchemeEnumFieldUpdateOperationsInput | $Enums.DefensiveSchemeEnum
     teamNeeds?: TeamUpdateteamNeedsInput | $Enums.PlayerPositionEnum[]
+    strategy?: EnumStrategyEnumFieldUpdateOperationsInput | $Enums.StrategyEnum
     wins?: IntFieldUpdateOperationsInput | number
     losses?: IntFieldUpdateOperationsInput | number
     ties?: IntFieldUpdateOperationsInput | number
@@ -41763,7 +42061,6 @@ export namespace Prisma {
     playoffAppearances?: IntFieldUpdateOperationsInput | number
     superBowlAppearances?: IntFieldUpdateOperationsInput | number
     championships?: IntFieldUpdateOperationsInput | number
-    capSpace?: IntFieldUpdateOperationsInput | number
     capLimit?: IntFieldUpdateOperationsInput | number
     totalPayroll?: IntFieldUpdateOperationsInput | number
     financialHealth?: EnumFinancialHealthEnumFieldUpdateOperationsInput | $Enums.FinancialHealthEnum
@@ -43394,6 +43691,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -43456,6 +43754,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -43544,6 +43843,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -43606,6 +43906,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -43684,6 +43985,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -43746,6 +44048,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -43808,6 +44111,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -43870,6 +44174,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -43948,6 +44253,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -44010,6 +44316,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -44072,6 +44379,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -44134,6 +44442,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -44222,6 +44531,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -44283,6 +44593,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -44344,6 +44655,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -44405,6 +44717,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -44484,6 +44797,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -44546,6 +44860,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -44608,6 +44923,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -44669,6 +44985,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -44731,6 +45048,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -44793,6 +45111,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -44854,6 +45173,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -44916,6 +45236,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -44978,6 +45299,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -45039,6 +45361,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -45101,6 +45424,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -45163,6 +45487,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -45512,6 +45837,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -45573,6 +45899,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -45635,6 +45962,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -45697,6 +46025,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -45758,6 +46087,7 @@ export namespace Prisma {
     id?: string
     firstName: string
     lastName: string
+    fullName: string
     age: number
     college: string
     heightInInches: number
@@ -45819,6 +46149,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -45881,6 +46212,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
@@ -45943,6 +46275,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     college?: StringFieldUpdateOperationsInput | string
     heightInInches?: IntFieldUpdateOperationsInput | number
