@@ -7,6 +7,7 @@ dotenv.config();
 
 // Import routes
 import playerRoutes from './routes/playerRoutes';
+import teamRoutes from './routes/teamRoutes';
 
 // Initialize express app
 const app = express();
@@ -23,6 +24,7 @@ app.get('/', (req: Request, res: Response) => {
 
 // Player routes
 app.use('/api/players', playerRoutes);
+app.use('/api/teams', teamRoutes);
 
 // Start server
 app.listen(PORT, () => {
