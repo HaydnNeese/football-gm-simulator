@@ -1,17 +1,14 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
-// Load environment variables
-dotenv.config();
-
-// Import routes
 import playerRoutes from './routes/playerRoutes';
 import teamRoutes from './routes/teamRoutes';
 
+dotenv.config();
+
 // Initialize express app
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 // Middleware
 app.use(cors());
