@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/prisma-client-js"
 }
 
 datasource db {
@@ -26,6 +25,15 @@ enum PlayerRoleEnum {
   BACKUP
   SPECIAL_TEAMS
   MENTOR
+}
+
+enum RosterStatus {
+  ACTIVE
+  PRACTICE_SQUAD
+  INJURED_RESERVE
+  SUSPENDED
+  RETIRED
+  FREE_AGENT
 }
 
 enum FootballRecordEnum {
@@ -110,6 +118,14 @@ enum InjuryTypeEnum {
   Cramping
   Fatigue
   Dehydration
+}
+
+enum PlayerStatus {
+  Active
+  Probable
+  Questionable
+  Doubtful
+  Out
 }
 
 enum OffFieldConcernTypeEnum {
@@ -373,6 +389,7 @@ enum PlayerPositionEnum {
   S
   K
   P
+  LS
 }
 
 enum FinancialHealthEnum {
@@ -396,168 +413,366 @@ enum ContractNegotiationStatusEnum {
   Failed
 }
 
+enum ContractStatus {
+  ACTIVE
+  TERMINATED
+  EXPIRED
+  INJURED_RESERVE
+  SUSPENDED
+}
+
 enum OptionType {
   TEAM
   PLAYER
 }
 
+enum InjuryStatus {
+  Active
+  Probable
+  Questionable
+  Doubtful
+  Out
+}
+
+enum StaffRole {
+  // Front Office
+  TEAM_OWNER
+  TEAM_PRESIDENT
+  GENERAL_MANAGER
+  ASSISTANT_GENERAL_MANAGER
+  MEDIA_RELATIONS_MANAGER
+  CAP_SPECIALIST
+
+  // Scouting
+  DIRECTOR_PLAYER_PERSONNEL
+  DIRECTOR_PRO_SCOUTING
+  DIRECTOR_COLLEGE_SCOUTING
+  PRO_SCOUT
+  NATIONAL_SCOUT
+  REGIONAL_SCOUT
+  COMBINE_SCOUT
+
+  // Medical
+  HEAD_TRAINER
+  ASSISTANT_TRAINER
+  TEAM_DOCTOR
+  PHYSICAL_THERAPIST
+  SPORTS_PSYCHOLOGIST
+  NUTRITIONIST
+
+  // Analytics
+  DATA_ANALYST
+  GAME_ANALYST
+  VIDEO_COORDINATOR
+
+  // Facilities
+  EQUIPMENT_MANAGER
+  FACILITY_MANAGER
+  GROUNDSKEEPER
+  SECURITY_MANAGER
+}
+
 model Player {
-  id        String @id @default(uuid())
-  firstName String
-  lastName  String
-  fullName  String
-  age       Int
-  college   String
-  jerseyNumber String
+  id           String    @id @default(uuid()) @map("id")
+  externalId   String    @unique
+  firstName    String?   @map("first_name")
+  lastName     String?   @map("last_name")
+  fullName     String?   @map("full_name")
+  age          Int?      @map("age")
+  birthDate    DateTime? @map("birth_date")
+  college      String?   @map("college")
+  jerseyNumber Int?      @map("jersey_number")
 
-  heightInInches Int
-  weightInPounds Int
+  heightInInches Int? @map("height_in_inches")
+  weightInPounds Int? @map("weight_in_pounds")
 
-  teamId String?
+  teamId String? @map("team_id")
   team   Team?   @relation("ActiveRoster", fields: [teamId], references: [id])
 
-  practiceSquadTeamId String?
-  practiceSquadTeam   Team?   @relation("PracticeSquad", fields: [practiceSquadTeamId], references: [id])
-
-  injuredReserveTeamId String?
+  practiceSquadTeamId  String? @map("practice_squad_team_id")
+  practiceSquadTeam    Team?   @relation("PracticeSquad", fields: [practiceSquadTeamId], references: [id])
+  injuredReserveTeamId String? @map("injured_reserve_team_id")
   injuredReserveTeam   Team?   @relation("InjuredReserve", fields: [injuredReserveTeamId], references: [id])
+  suspendedListTeamId  String? @map("suspended_list_team_id")
+  suspendedListTeam    Team?   @relation("SuspendedList", fields: [suspendedListTeamId], references: [id])
 
-  suspendedListTeamId String?
-  suspendedListTeam   Team?   @relation("SuspendedList", fields: [suspendedListTeamId], references: [id])
+  positionAbbreviation String?         @map("position_abbreviation")
+  currentContractId    String?         @unique @map("current_contract_id")
+  currentContract      PlayerContract? @relation("PlayerCurrentContract", fields: [currentContractId], references: [id], map: "player_current_contract_fkey")
 
-  currentContractId String?         @unique
-  currentContract   PlayerContract? @relation("PlayerCurrentContract")
-
-  agentId String?
+  agentId String? @unique @map("agent_id")
   agent   Agent?  @relation(fields: [agentId], references: [id])
 
-  ratingsId String? @unique
-  ratings   Rating? @relation(fields: [ratingsId], references: [id])
+  ratingsId String? @unique @map("ratings_id")
+  ratings   Rating?
 
-  statsId String? @unique
-  stats   Stat?   @relation(fields: [statsId], references: [id])
+  statsId String?      @unique @map("stats_id")
+  stats   PlayerStats?
 
   // --- Enums ---
   position          PlayerPositionEnum?
-  expectedRole      PlayerRoleEnum?
-  actualRole        PlayerRoleEnum?
-  recordsHeld       FootballRecordEnum[]
-  currentInjury     InjuryTypeEnum?
-  injuryHistory     InjuryTypeEnum[]
-  personalityTraits PlayerPersonalityTraitEnum[]
-  offFieldConcerns  OffFieldConcernTypeEnum[]
-  pastEvents        PlayerEventEnum[]
+  expectedRole      PlayerRoleEnum?              @map("expected_role")
+  actualRole        PlayerRoleEnum?              @map("actual_role")
+  recordsHeld       FootballRecordEnum[]         @map("records_held")
+  currentInjury     InjuryTypeEnum?              @map("current_injury")
+  injuryHistory     InjuryTypeEnum[]             @map("injury_history")
+  personalityTraits PlayerPersonalityTraitEnum[] @map("personality_traits")
+  offFieldConcerns  OffFieldConcernTypeEnum[]    @map("off_field_concerns")
+  pastEvents        PlayerEventEnum[]            @map("past_events")
 
   // --- Flags ---
-  isStarter       Boolean @default(false)
-  isCaptain       Boolean @default(false)
-  isFreeAgent     Boolean @default(false)
-  isRetired       Boolean @default(false)
-  isSuspended     Boolean @default(false)
-  isPracticeSquad Boolean @default(false)
-  isTradeBlock    Boolean @default(false)
+  isStarter       Boolean @default(false) @map("is_starter")
+  isCaptain       Boolean @default(false) @map("is_captain")
+  isFreeAgent     Boolean @default(false) @map("is_free_agent")
+  isRetired       Boolean @default(false) @map("is_retired")
+  isSuspended     Boolean @default(false) @map("is_suspended")
+  isPracticeSquad Boolean @default(false) @map("is_practice_squad")
+  isTradeBlock    Boolean @default(false) @map("is_trade_block")
   offense         Boolean @default(false)
   defense         Boolean @default(false)
-  specialTeams    Boolean @default(false)
+  specialTeams    Boolean @default(false) @map("special_teams")
 
   // --- Draft & Contract ---
-  draftYear                 Int?
-  draftRound                Int?
-  isRecordHolder            Boolean                        @default(false)
-  contractDesiresId         String?                        @unique
-  contractDesires           ContractDesires?               @relation(fields: [contractDesiresId], references: [id])
-  contractNegotiationStatus ContractNegotiationStatusEnum?
-  lastContractUpdate        DateTime?
+  draftYear                 Int?                           @map("draft_year")
+  draftRound                Int?                           @map("draft_round")
+  isRecordHolder            Boolean                        @default(false) @map("is_record_holder")
+  playerContract            PlayerContract?                @relation("ContractedPlayer")
+  contractDesiresId         String?                        @unique @map("contract_desires_id")
+  contractDesires           ContractDesires?               @relation("PlayerToContractDesires")
+  contractNegotiationStatus ContractNegotiationStatusEnum? @map("contract_negotiation_status")
+  lastContractUpdate        DateTime?                      @map("last_contract_update")
 
   // --- Ratings ---
-  performanceRating Int?
-  impactRating      Int?
+  performanceRating Int? @map("performance_rating")
+  impactRating      Int? @map("impact_rating")
   potential         Int?
   experience        Int?
 
   // --- Injury ---
-  isInjured                Boolean   @default(false)
-  injuryProneness          Boolean   @default(false)
-  expectedReturnFromInjury DateTime?
+  injuryStatus             InjuryStatus? @default(Active)
+  isInjured                Boolean?      @default(false) @map("is_injured")
+  injuryProneness          Boolean?      @default(false) @map("injury_proneness")
+  expectedReturnFromInjury DateTime?     @map("expected_return_from_injury")
 
   // --- Intangibles ---
   morale       Int?
   leadership   Int?
   adaptability Int?
-  workEthic    Int?
+  workEthic    Int? @map("work_ethic")
   consistency  Int?
   clutchFactor Int?
-  footballIQ   Int?
+  footballIQ   Int? @map("football_iq")
   popularity   Int?
 
   // --- Training ---
-  trainingFocus    String?
-  trainingProgress Int?
+  trainingFocus    String? @map("training_focus")
+  trainingProgress Int?    @map("training_progress")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  @@map("player")
 }
 
 model Team {
-  id           String  @id @default(uuid())
-  name         String  @unique
-  nickname     String  @unique
-  location     String  @unique
-  abbreviation String  @unique
-  stadium      String
-  logoUrl      String?
-  colorPrimary String? // hex color code
-  colorSecondary String? // hex color code
-  colorTertiary String? // hex color code
+  playerStats    PlayerStats[]
+  coaches        Coach[]
+  staff          Staff[]
+  id             String        @id @default(uuid())
+  name           String?       @unique
+  nickname       String?       @unique
+  location       String?
+  abbreviation   String        @unique
+  stadium        String?
+  logoUrl        String?       @map("logo_url")
+  colorPrimary   String?       @map("color_primary") // hex color code
+  colorSecondary String?       @map("color_secondary") // hex color code
+  colorTertiary  String?       @map("color_tertiary") // hex color code
 
-  division   DivisionEnum
-  conference ConferenceEnum
+  division   DivisionEnum?   @map("division")
+  conference ConferenceEnum? @map("conference")
 
   // Coach, staff, and front office fields remain unchanged ...
+  headCoachId String? @unique @map("head_coach_id")
+  headCoach   Coach?  @relation("HeadCoach", fields: [headCoachId], references: [id])
+
+  assistantHeadCoachId String? @unique @map("assistant_head_coach_id")
+  assistantHeadCoach   Coach?  @relation("AssistantHeadCoach", fields: [assistantHeadCoachId], references: [id])
+
+  offensiveCoordinatorId String? @unique @map("offensive_coordinator_id")
+  offensiveCoordinator   Coach?  @relation("OffensiveCoordinator", fields: [offensiveCoordinatorId], references: [id])
+
+  defensiveCoordinatorId String? @unique @map("defensive_coordinator_id")
+  defensiveCoordinator   Coach?  @relation("DefensiveCoordinator", fields: [defensiveCoordinatorId], references: [id])
+
+  specialTeamsCoordinatorId String? @unique @map("special_teams_coordinator_id")
+  specialTeamsCoordinator   Coach?  @relation("SpecialTeamsCoordinator", fields: [specialTeamsCoordinatorId], references: [id])
+
+  quarterbackCoachId String? @unique @map("quarterback_coach_id")
+  quarterbackCoach   Coach?  @relation("QuarterbackCoach", fields: [quarterbackCoachId], references: [id])
+
+  runningBacksCoachId String? @unique @map("running_backs_coach_id")
+  runningBacksCoach   Coach?  @relation("RunningBacksCoach", fields: [runningBacksCoachId], references: [id])
+
+  wideReceiversCoachId String? @unique @map("wide_receivers_coach_id")
+  wideReceiversCoach   Coach?  @relation("WideReceiversCoach", fields: [wideReceiversCoachId], references: [id])
+
+  tightEndsCoachId String? @unique @map("tight_ends_coach_id")
+  tightEndsCoach   Coach?  @relation("TightEndsCoach", fields: [tightEndsCoachId], references: [id])
+
+  offensiveLineCoachId String? @unique @map("offensive_line_coach_id")
+  offensiveLineCoach   Coach?  @relation("OffensiveLineCoach", fields: [offensiveLineCoachId], references: [id])
+
+  defensiveLineCoachId String? @unique @map("defensive_line_coach_id")
+  defensiveLineCoach   Coach?  @relation("DefensiveLineCoach", fields: [defensiveLineCoachId], references: [id])
+
+  linebackersCoachId String? @unique @map("linebackers_coach_id")
+  linebackersCoach   Coach?  @relation("LinebackersCoach", fields: [linebackersCoachId], references: [id])
+
+  defensiveBacksCoachId String? @unique @map("defensive_backs_coach_id")
+  defensiveBacksCoach   Coach?  @relation("DefensiveBacksCoach", fields: [defensiveBacksCoachId], references: [id])
+
+  strengthAndConditioningCoachId String? @unique @map("strength_and_conditioning_coach_id")
+  strengthAndConditioningCoach   Coach?  @relation("StrengthAndConditioningCoach", fields: [strengthAndConditioningCoachId], references: [id])
+
+  qualityControlCoachOffenseId String? @unique @map("quality_control_coach_offense_id")
+  qualityControlCoachOffense   Coach?  @relation("QualityControlCoachOffense", fields: [qualityControlCoachOffenseId], references: [id])
+
+  qualityControlCoachDefenseId String? @unique @map("quality_control_coach_defense_id")
+  qualityControlCoachDefense   Coach?  @relation("QualityControlCoachDefense", fields: [qualityControlCoachDefenseId], references: [id])
+
+  teamOwnerId String? @unique @map("team_owner_id")
+  teamOwner   Staff?  @relation("TeamOwner", fields: [teamOwnerId], references: [id])
+
+  teamPresidentId String? @unique @map("team_president_id")
+  teamPresident   Staff?  @relation("TeamPresident", fields: [teamPresidentId], references: [id])
+
+  generalManagerId String? @unique @map("general_manager_id")
+  generalManager   Staff?  @relation("GeneralManager", fields: [generalManagerId], references: [id])
+
+  assistantGeneralManagerId String? @unique @map("assistant_general_manager_id")
+  assistantGeneralManager   Staff?  @relation("AssistantGeneralManager", fields: [assistantGeneralManagerId], references: [id])
+
+  mediaRelationsManagerId String? @unique @map("media_relations_manager_id")
+  mediaRelationsManager   Staff?  @relation("MediaRelationsManager", fields: [mediaRelationsManagerId], references: [id])
+
+  capSpecialistId String? @unique @map("cap_specialist_id")
+  capSpecialist   Staff?  @relation("CapSpecialist", fields: [capSpecialistId], references: [id])
+
+  directorPlayerPersonnelId String? @unique @map("director_player_personnel_id")
+  directorPlayerPersonnel   Staff?  @relation("DirectorPlayerPersonnel", fields: [directorPlayerPersonnelId], references: [id])
+
+  directorOfProScoutingId String? @unique @map("director_of_pro_scouting_id")
+  directorOfProScouting   Staff?  @relation("DirectorOfProScouting", fields: [directorOfProScoutingId], references: [id])
+
+  directorOfCollegeScoutingId String? @unique @map("director_of_college_scouting_id")
+  directorOfCollegeScouting   Staff?  @relation("DirectorOfCollegeScouting", fields: [directorOfCollegeScoutingId], references: [id])
+
+  proScouts Staff[] @relation("ProScouts")
+
+  nationalScouts Staff[] @relation("NationalScouts")
+
+  regionalScouts Staff[] @relation("RegionalScouts")
+
+  headAthleticTrainerId String? @unique @map("head_athletic_trainer_id")
+  headAthleticTrainer   Staff?  @relation("HeadAthleticTrainer", fields: [headAthleticTrainerId], references: [id])
+
+  assistantAthleticTrainerId String? @unique @map("assistant_athletic_trainer_id")
+  assistantAthleticTrainer   Staff?  @relation("AssistantAthleticTrainer", fields: [assistantAthleticTrainerId], references: [id])
+
+  teamDoctorId String? @unique @map("team_doctor_id")
+  teamDoctor   Staff?  @relation("TeamDoctor", fields: [teamDoctorId], references: [id])
+
+  physicalTherapistId String? @unique @map("physical_therapist_id")
+  physicalTherapist   Staff?  @relation("PhysicalTherapist", fields: [physicalTherapistId], references: [id])
+
+  sportsPsychologistId String? @unique @map("sports_psychologist_id")
+  sportsPsychologist   Staff?  @relation("SportsPsychologist", fields: [sportsPsychologistId], references: [id])
+
+  nutritionistId String? @unique @map("nutritionist_id")
+  nutritionist   Staff?  @relation("Nutritionist", fields: [nutritionistId], references: [id])
+
+  dataAnalystId String? @unique @map("data_analyst_id")
+  dataAnalyst   Staff?  @relation("DataAnalyst", fields: [dataAnalystId], references: [id])
+
+  gameAnalystId String? @unique @map("game_analyst_id")
+  gameAnalyst   Staff?  @relation("GameAnalyst", fields: [gameAnalystId], references: [id])
+
+  videoCoordinatorId String? @unique @map("video_coordinator_id")
+  videoCoordinator   Staff?  @relation("VideoCoordinator", fields: [videoCoordinatorId], references: [id])
+
+  equipmentManagerId String? @unique @map("equipment_manager_id")
+  equipmentManager   Staff?  @relation("EquipmentManager", fields: [equipmentManagerId], references: [id])
+
+  facilityManagerId String? @unique @map("facility_manager_id")
+  facilityManager   Staff?  @relation("FacilityManager", fields: [facilityManagerId], references: [id])
+
+  groundskeeperId String? @unique @map("groundskeeper_id")
+  groundskeeper   Staff?  @relation("Groundskeeper", fields: [groundskeeperId], references: [id])
+
+  securityManagerId String? @unique @map("security_manager_id")
+  securityManager   Staff?  @relation("SecurityManager", fields: [securityManagerId], references: [id])
 
   players        Player[] @relation("ActiveRoster")
   practiceSquad  Player[] @relation("PracticeSquad")
   injuredReserve Player[] @relation("InjuredReserve")
   suspendedList  Player[] @relation("SuspendedList")
 
-  overallRating   Int
-  offensiveScheme OffensiveSchemeEnum
-  defensiveScheme DefensiveSchemeEnum
-  teamNeeds       PlayerPositionEnum[]
-  strategy         StrategyEnum
+  overallRating   Int?                 @map("overall_rating")
+  offensiveScheme OffensiveSchemeEnum? @map("offensive_scheme")
+  defensiveScheme DefensiveSchemeEnum? @map("defensive_scheme")
+  teamNeeds       PlayerPositionEnum[] @map("team_needs")
+  strategy        StrategyEnum?
 
-  wins                 Int
-  losses               Int
-  ties                 Int
-  currentStreak        Int
-  longestWinningStreak Int
-  playoffAppearances   Int
-  superBowlAppearances Int
-  championships        Int
+  wins                 Int?
+  losses               Int?
+  ties                 Int?
+  currentStreak        Int?
+  longestWinningStreak Int?
+  playoffAppearances   Int?
+  superBowlAppearances Int?
+  championships        Int?
 
-  capLimit        Int
-  totalPayroll    Int
-  financialHealth FinancialHealthEnum
-  playerContracts PlayerContract[] @relation("TeamToContracts")
+  capLimit           Int?
+  totalPayroll       Int?
+  financialHealth    FinancialHealthEnum
+  playerContracts    PlayerContract[]    @relation("ContractedTeam")
+  revenue            Int?
+  expenses           Int?
+  profit             Int?
+  attendance         Int?
+  merchandiseSales   Int?
+  jerseySales        Int?
+  ticketSales        Int?
+  sponsorshipRevenue Int?
+  tvRevenue          Int?
+  concessionsRevenue Int?
 
-  yearFounded    Int
-  allTimeWins    Int
-  allTimeLosses  Int
-  allTimeTies    Int
+  yearFounded    Int?
+  allTimeWins    Int?
+  allTimeLosses  Int?
+  allTimeTies    Int?
   retiredNumbers Int[]
 
-  fanBaseSize Int
-  prestige    Int
+  fanBaseSize Int?
+  prestige    Int?
   rivalTeams  String[]
+  mascot      String?
+
+  draftPicks Int[] @map("draft_picks")
+
+  @@map("team")
 }
 
 model PlayerContract {
-  id       String  @id @default(uuid())
-  playerId String? @unique
-  player   Player? @relation("PlayerCurrentContract", fields: [playerId], references: [id])
+  staff                 Staff[]
+  id                    String  @id @default(uuid())
+  playerId              String  @unique
+  player                Player  @relation("ContractedPlayer", fields: [playerId], references: [id])
+  playerCurrentContract Player? @relation("PlayerCurrentContract")
 
-  teamId           String?   @unique
-  team             Team?     @relation("TeamToContracts", fields: [teamId], references: [id])
+  teamId           String    
+  team             Team      @relation("ContractedTeam", fields: [teamId], references: [id])
   signedDate       DateTime?
   startSeason      Int?
   endSeason        Int?
@@ -580,58 +795,70 @@ model PlayerContract {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("player_contract")
 }
 
 model ContractBonus {
   id             String @id @default(uuid())
   contractId     String
-  year           Int
+  year           Int?
   signingBonus   Int?
   rosterBonus    Int?
   workoutBonus   Int?
   incentiveBonus Int?
 
   contract PlayerContract @relation(fields: [contractId], references: [id])
+
+  @@map("contract_bonus")
 }
 
 model SalaryByYear {
   id         String @id @default(uuid())
   contractId String
-  year       Int
-  amount     Int
+  year       Int?
+  amount     Int?
 
   contract PlayerContract @relation(fields: [contractId], references: [id])
+
+  @@map("salary_by_year")
 }
 
 model CapHitByYear {
   id         String @id @default(uuid())
   contractId String
-  year       Int
-  amount     Int
+  year       Int?
+  amount     Int?
 
   contract PlayerContract @relation(fields: [contractId], references: [id])
+
+  @@map("cap_hit_by_year")
 }
 
 model DeadCapByYear {
   id         String @id @default(uuid())
-  contractId String @unique
-  year       Int
-  amount     Int
+  contractId String
+  year       Int?
+  amount     Int?
 
   contract PlayerContract @relation(fields: [contractId], references: [id])
+
+  @@map("dead_cap_by_year")
 }
 
 model OptOutYear {
   id         String @id @default(uuid())
-  contractId String @unique
+  contractId String
   year       Int
 
   contract PlayerContract @relation(fields: [contractId], references: [id])
+
+  @@map("opt_out_year")
 }
 
 model RestructureEvent {
   id                     String    @id @default(uuid())
-  contractId             String    @unique
+  contractId             String
   year                   Int?
   date                   DateTime?
   amountConvertedToBonus Int?
@@ -639,6 +866,8 @@ model RestructureEvent {
   newDeadCap             Int?
 
   contract PlayerContract @relation(fields: [contractId], references: [id])
+
+  @@map("restructure_event")
 }
 
 model ContractClause {
@@ -658,6 +887,8 @@ model ContractClause {
   workoutBonus       WorkoutBonus?
   optionBonusId      String?           @unique
   optionBonus        OptionBonus?
+
+  @@map("contract_clause")
 }
 
 model PerformanceBonus {
@@ -671,6 +902,8 @@ model PerformanceBonus {
 
   clauses        ContractClause @relation(fields: [clauseId], references: [id])
   statMilestones StatMilestone?
+
+  @@map("performance_bonus")
 }
 
 model StatMilestone {
@@ -682,6 +915,8 @@ model StatMilestone {
   interceptions Int?
 
   performanceBonus PerformanceBonus @relation(fields: [performanceId], references: [id])
+
+  @@map("stat_milestone")
 }
 
 model RosterBonus {
@@ -691,6 +926,8 @@ model RosterBonus {
   perGame  Boolean?
 
   clause ContractClause @relation(fields: [clauseId], references: [id])
+
+  @@map("roster_bonus")
 }
 
 model WorkoutBonus {
@@ -700,6 +937,8 @@ model WorkoutBonus {
   minWorkouts Int?
 
   clause ContractClause @relation(fields: [clauseId], references: [id])
+
+  @@map("workout_bonus")
 }
 
 model OptionBonus {
@@ -710,6 +949,8 @@ model OptionBonus {
   type     OptionType?
 
   clause ContractClause @relation(fields: [clauseId], references: [id])
+
+  @@map("option_bonus")
 }
 
 model Agent {
@@ -720,12 +961,14 @@ model Agent {
   reputation        Int?
   yearsOfExperience Int?
   players           Player[]
+
+  @@map("agent")
 }
 
 model Rating {
   id       String  @id @default(uuid())
   playerId String? @unique
-  player   Player?
+  player   Player? @relation(fields: [playerId], references: [id])
 
   // --- Base Athletic Traits ---
   speed             Int?
@@ -839,13 +1082,18 @@ model Rating {
   // --- Kick Return/Punt Return Skills ---
   kickReturnVision Int?
   puntReturnVision Int?
+
+  @@map("rating")
 }
 
-model Stat {
+model PlayerStats {
   id       String  @id @default(uuid())
   season   Int?
   playerId String? @unique
-  player   Player?
+  player   Player? @relation(fields: [playerId], references: [id])
+
+  teamId String?
+  team   Team?   @relation(fields: [teamId], references: [id])
 
   gamesPlayed  Int?
   gamesStarted Int?
@@ -918,22 +1166,100 @@ model Stat {
   penaltyYards       Int?
 
   @@unique([playerId, season])
+  @@map("player_stats")
 }
 
 model ContractDesires {
-  id              String   @id @default(uuid())
-  years           Int?
-  averageSalary   Int?
-  totalGuaranteed Int?
-  bonuses         Json?
-  tradeClause     Boolean?
-  injuryGuarantee Boolean?
-  rosterBonus     Json?
-  workoutBonus    Json?
-  incentives      Json?
-  optOutYears     Int[]
-  isPlayerOptOut  Boolean?
-  isTeamOptOut    Boolean?
-  playerId        String?  @unique
-  player          Player[]
+  id                          String    @id @default(uuid())
+  years                       Int?      @map("years")
+  average_salary              Int?      @map("average_salary")
+  total_guaranteed            Int?      @map("total_guaranteed")
+  signing_bonus_amount        Int?      @map("signing_bonus_amount")
+  signing_bonus_percentage    Int?      @map("signing_bonus_percentage")
+  signing_bonus_prorate_years Int?      @map("signing_bonus_prorate_years")
+  trade_clause                Boolean?  @map("trade_clause")
+  injury_guarantee            Boolean?  @map("injury_guarantee")
+  roster_bonus_amount         Int?      @map("roster_bonus_amount")
+  roster_bonus_date           DateTime? @map("roster_bonus_date")
+  workout_bonus_amount        Int?      @map("workout_bonus_amount")
+  workout_bonus_percentage    Int?      @map("workout_bonus_percentage")
+  incentives                  Json?     @map("incentives")
+  opt_out_years               Int[]     @map("opt_out_years")
+  is_player_opt_out           Boolean?  @map("is_player_opt_out")
+  is_team_opt_out             Boolean?  @map("is_team_opt_out")
+  playerId                    String?   @unique @map("player_id")
+  player                      Player?   @relation("PlayerToContractDesires", fields: [playerId], references: [id])
+
+  @@map("contract_desires")
+}
+
+model Coach {
+  id                             String   @id @default(uuid())
+  firstName                      String
+  lastName                       String
+  fullName                       String
+  age                            Int
+  birthDate                      DateTime
+  experience                     Int
+  teamId                         String?  @map("team_id")
+  team                           Team?    @relation(fields: [teamId], references: [id])
+  headCoachOf                    Team?    @relation("HeadCoach")
+  assistantHeadCoachOf           Team?    @relation("AssistantHeadCoach")
+  offensiveCoordinatorOf         Team?    @relation("OffensiveCoordinator")
+  defensiveCoordinatorOf         Team?    @relation("DefensiveCoordinator")
+  specialTeamsCoordinatorOf      Team?    @relation("SpecialTeamsCoordinator")
+  quarterbackCoachOf             Team?    @relation("QuarterbackCoach")
+  runningBacksCoachOf            Team?    @relation("RunningBacksCoach")
+  wideReceiversCoachOf           Team?    @relation("WideReceiversCoach")
+  tightEndsCoachOf               Team?    @relation("TightEndsCoach")
+  offensiveLineCoachOf           Team?    @relation("OffensiveLineCoach")
+  defensiveLineCoachOf           Team?    @relation("DefensiveLineCoach")
+  linebackersCoachOf             Team?    @relation("LinebackersCoach")
+  defensiveBacksCoachOf          Team?    @relation("DefensiveBacksCoach")
+  strengthAndConditioningCoachOf Team?    @relation("StrengthAndConditioningCoach")
+  qualityControlCoachOffenseOf   Team?    @relation("QualityControlCoachOffense")
+  qualityControlCoachDefenseOf   Team?    @relation("QualityControlCoachDefense")
+}
+
+model Staff {
+  id                          String          @id @default(uuid())
+  teamId                      String?         @map("team_id")
+  team                        Team?           @relation(fields: [teamId], references: [id])
+  firstName                   String          @map("first_name")
+  lastName                    String          @map("last_name")
+  fullName                    String          @map("full_name")
+  age                         Int
+  birthDate                   DateTime        @map("birth_date")
+  role                        StaffRole
+  hireDate                    DateTime        @default(now()) @map("hire_date")
+  contractId                  String?         @map("contract_id")
+  contract                    PlayerContract? @relation(fields: [contractId], references: [id])
+  teamOwnerOf                 Team?           @relation("TeamOwner")
+  teamPresidentOf             Team?           @relation("TeamPresident")
+  generalManagerOf            Team?           @relation("GeneralManager")
+  assistantGeneralManagerOf   Team?           @relation("AssistantGeneralManager")
+  mediaRelationsManagerOf     Team?           @relation("MediaRelationsManager")
+  capSpecialistOf             Team?           @relation("CapSpecialist")
+  directorPlayerPersonnelOf   Team?           @relation("DirectorPlayerPersonnel")
+  directorOfProScoutingOf     Team?           @relation("DirectorOfProScouting")
+  directorOfCollegeScoutingOf Team?           @relation("DirectorOfCollegeScouting")
+  proScoutOfId                String?         @map("pro_scout_of_id")
+  proScoutOf                  Team?           @relation("ProScouts", fields: [proScoutOfId], references: [id], map: "staff_pro_scout_of_fkey")
+  nationalScoutOfId           String?         @map("national_scout_of_id")
+  nationalScoutOf             Team?           @relation("NationalScouts", fields: [nationalScoutOfId], references: [id], map: "staff_national_scout_of_fkey")
+  regionalScoutOfId           String?         @map("regional_scout_of_id")
+  regionalScoutOf             Team?           @relation("RegionalScouts", fields: [regionalScoutOfId], references: [id], map: "staff_regional_scout_of_fkey")
+  headAthleticTrainerOf       Team?           @relation("HeadAthleticTrainer")
+  assistantAthleticTrainerOf  Team?           @relation("AssistantAthleticTrainer")
+  teamDoctorOf                Team?           @relation("TeamDoctor")
+  physicalTherapistOf         Team?           @relation("PhysicalTherapist")
+  sportsPsychologistOf        Team?           @relation("SportsPsychologist")
+  nutritionistOf              Team?           @relation("Nutritionist")
+  dataAnalystOf               Team?           @relation("DataAnalyst")
+  gameAnalystOf               Team?           @relation("GameAnalyst")
+  videoCoordinatorOf          Team?           @relation("VideoCoordinator")
+  equipmentManagerOf          Team?           @relation("EquipmentManager")
+  facilityManagerOf           Team?           @relation("FacilityManager")
+  groundskeeperOf             Team?           @relation("Groundskeeper")
+  securityManagerOf           Team?           @relation("SecurityManager")
 }

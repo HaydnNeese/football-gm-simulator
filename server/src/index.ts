@@ -18,11 +18,6 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.get('/', (req: Request, res: Response) => {
-  res.send('API is running');
-});
-
-// Player routes
 app.use('/api/players', playerRoutes);
 app.use('/api/teams', teamRoutes);
 

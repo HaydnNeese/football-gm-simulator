@@ -1,0 +1,71 @@
+-- AlterTable
+ALTER TABLE "public"."cap_hit_by_year" ALTER COLUMN "year" DROP NOT NULL,
+ALTER COLUMN "amount" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "public"."contract_bonus" ALTER COLUMN "year" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "public"."dead_cap_by_year" ALTER COLUMN "year" DROP NOT NULL,
+ALTER COLUMN "amount" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "public"."player" ALTER COLUMN "age" DROP NOT NULL,
+ALTER COLUMN "college" DROP NOT NULL,
+ALTER COLUMN "birth_date" DROP NOT NULL,
+ALTER COLUMN "created_at" DROP NOT NULL,
+ALTER COLUMN "first_name" DROP NOT NULL,
+ALTER COLUMN "full_name" DROP NOT NULL,
+ALTER COLUMN "height_in_inches" DROP NOT NULL,
+ALTER COLUMN "injuryStatus" DROP NOT NULL,
+ALTER COLUMN "injury_proneness" DROP NOT NULL,
+ALTER COLUMN "is_injured" DROP NOT NULL,
+ALTER COLUMN "jersey_number" DROP NOT NULL,
+ALTER COLUMN "last_name" DROP NOT NULL,
+ALTER COLUMN "position_abbreviation" DROP NOT NULL,
+ALTER COLUMN "updated_at" DROP NOT NULL,
+ALTER COLUMN "weight_in_pounds" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "public"."salary_by_year" ALTER COLUMN "year" DROP NOT NULL,
+ALTER COLUMN "amount" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "public"."team" ALTER COLUMN "name" DROP NOT NULL,
+ALTER COLUMN "nickname" DROP NOT NULL,
+ALTER COLUMN "location" DROP NOT NULL,
+ALTER COLUMN "abbreviation" DROP NOT NULL,
+ALTER COLUMN "stadium" DROP NOT NULL,
+ALTER COLUMN "division" DROP NOT NULL,
+ALTER COLUMN "conference" DROP NOT NULL,
+ALTER COLUMN "strategy" DROP NOT NULL,
+ALTER COLUMN "wins" DROP NOT NULL,
+ALTER COLUMN "losses" DROP NOT NULL,
+ALTER COLUMN "ties" DROP NOT NULL,
+ALTER COLUMN "currentStreak" DROP NOT NULL,
+ALTER COLUMN "longestWinningStreak" DROP NOT NULL,
+ALTER COLUMN "playoffAppearances" DROP NOT NULL,
+ALTER COLUMN "superBowlAppearances" DROP NOT NULL,
+ALTER COLUMN "championships" DROP NOT NULL,
+ALTER COLUMN "capLimit" DROP NOT NULL,
+ALTER COLUMN "totalPayroll" DROP NOT NULL,
+ALTER COLUMN "yearFounded" DROP NOT NULL,
+ALTER COLUMN "allTimeWins" DROP NOT NULL,
+ALTER COLUMN "allTimeLosses" DROP NOT NULL,
+ALTER COLUMN "allTimeTies" DROP NOT NULL,
+ALTER COLUMN "fanBaseSize" DROP NOT NULL,
+ALTER COLUMN "prestige" DROP NOT NULL,
+ALTER COLUMN "attendance" DROP NOT NULL,
+ALTER COLUMN "concessionsRevenue" DROP NOT NULL,
+ALTER COLUMN "defensive_scheme" DROP NOT NULL,
+ALTER COLUMN "expenses" DROP NOT NULL,
+ALTER COLUMN "jerseySales" DROP NOT NULL,
+ALTER COLUMN "mascot" DROP NOT NULL,
+ALTER COLUMN "merchandiseSales" DROP NOT NULL,
+ALTER COLUMN "offensive_scheme" DROP NOT NULL,
+ALTER COLUMN "overall_rating" DROP NOT NULL,
+ALTER COLUMN "profit" DROP NOT NULL,
+ALTER COLUMN "revenue" DROP NOT NULL,
+ALTER COLUMN "sponsorshipRevenue" DROP NOT NULL,
+ALTER COLUMN "ticketSales" DROP NOT NULL,
+ALTER COLUMN "tvRevenue" DROP NOT NULL;

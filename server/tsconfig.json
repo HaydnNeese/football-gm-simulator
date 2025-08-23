@@ -12,5 +12,5 @@
     },
     "skipLibCheck": true
   },
-  "include": ["./src", "./prisma", "../shared/models", "../shared/enums"]
+  "include": ["./src", "./prisma", "../shared/models", "../shared/enums", "../shared/dataMaps/playerMaps", "../shared/dataMaps/teamMaps"],
 }
