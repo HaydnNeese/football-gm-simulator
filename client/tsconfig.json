@@ -20,5 +20,5 @@
       "@shared/*": ["../shared/*"]
     },
   },
-  "include": ["src", "../shared/models", "../shared/enums"],
+  "include": ["src", "../shared/models", "../shared/enums", "../shared/dataMaps/playerMaps", "../shared/dataMaps/teamMaps"],
 }

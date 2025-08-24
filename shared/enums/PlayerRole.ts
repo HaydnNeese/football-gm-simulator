@@ -1,7 +1,7 @@
 export enum PlayerRoleEnum {
-    Starter = "starter",
-    RolePlayer = "role player",
-    Backup = "backup",
-    SpecialTeams = "special teams",
-    Mentor = "mentor"
+    STARTER = "STARTER",
+    ROLE_PLAYER = "ROLE_PLAYER",
+    BACKUP = "BACKUP",
+    SPECIAL_TEAMS = "SPECIAL_TEAMS",
+    MENTOR = "MENTOR"
 }

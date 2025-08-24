@@ -7,20 +7,19 @@ import {
   OffensiveSchemeEnum,
   PlayerPositionEnum,
   StrategyEnum
-} from "../enums";
+} from "@shared/enums";
 import { Player } from "./player";
 import { PlayerContract } from "./playerContract";
 
+
 export interface Team {
-  id: string; // unique team identifier
+  id?: string; // unique team identifier
   name?: string;
   nickname?: string;
   location?: string;
   abbreviation?: string; // e.g. "NYJ"
-  stadium?: NFLStadium;
-  draftPicks?: string[]; // list of draft pick IDs
-  //TODO add draftpicks to database
-  //TODO create draftpicks enum
+  stadium?: NFLStadium | string;
+  draftPicks?: number[]; // list of draft pick IDs
 
   // League Info
   division?: DivisionEnum;
@@ -66,9 +65,8 @@ export interface Team {
   directorOfProScoutingId?: string;
   directorOfCollegeScoutingId?: string;
   proScoutIds?: string[];
-  nationalScoutId?: string;
+  nationalScoutIds?: string[];
   regionalScoutIds?: string[];
-  combineScoutId?: string;
 
   // Medical Staff
   //TODO needs added to database
@@ -121,6 +119,16 @@ export interface Team {
   totalPayroll?: number;
   financialHealth?: FinancialHealthEnum;
   playerContracts?: PlayerContract[];
+  revenue?: number; // annual revenue
+  expenses?: number; // annual expenses
+  attendance?: number; // average attendance
+  merchandiseSales?: number; // annual merchandise sales
+  jerseySales?: number; // annual jersey sales
+  ticketSales?: number; // annual ticket sales
+  sponsorshipRevenue?: number; // annual sponsorship revenue
+  tvRevenue?: number; // annual TV revenue
+  concessionsRevenue?: number; // annual concessions revenue
+
 
   // History
   yearFounded?: number;
@@ -133,4 +141,6 @@ export interface Team {
   fanBaseSize?: number;
   prestige?: number; // influences free agency appeal
   rivalTeams?: string[]; // list of team IDs
+  mascot?: string; // name or description of the team mascot
+
 }

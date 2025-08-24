@@ -6,16 +6,19 @@ import {
   FootballRecordEnum,
   InjuryTypeEnum,
   PlayerEventEnum,
-} from "../enums";
+  InjuryStatus,
+} from "@shared/enums";
 
 // Define FootballRecord type or import it from its module
 export interface Player {
   // --- Identity & Biographical ---
   id?: string;
+  externalId?: string;
   firstName?: string;
   lastName?: string;
   fullName?: string;
   age?: number;
+  birthDate?: Date;
   college?: string;
   jerseyNumber?: number;
 
@@ -25,13 +28,11 @@ export interface Player {
 
   // --- Team & Role ---
   teamId?: string; // Current team ID
-  practiceSquadTeamId?: string; // Current practice squad team ID
-  injuredReserveTeamId?: string; // Current injured reserve team ID
-  suspendedListTeamId?: string; // Current suspended list team ID
   position?: PlayerPositionEnum;
   positionAbbreviation?: string; // Original position abbreviation from data source
   expectedRole?: PlayerRoleEnum; // Expected role (e.g., starter, backup)
   actualRole?: PlayerRoleEnum; // Actual role on the team
+  experience?: number; // 0–100
   isStarter?: boolean;
   isCaptain?: boolean;
   isFreeAgent?: boolean;
@@ -62,7 +63,6 @@ export interface Player {
   performanceRating?: number; // 0–100, overall performance rating
   impactRating?: number; // 0–100, overall impact rating
   potential?: number; // 0–100
-  experience?: number; // 0–100
   // lastGamePerformance?: {
   //     date?: string;
   //     stats?: PlayerRatings;
@@ -75,6 +75,7 @@ export interface Player {
   injuryHistory?: InjuryTypeEnum[];
   injuryProneness?: boolean;
   expectedReturnFromInjury?: Date;
+  injuryStatus: InjuryStatus;
 
   // --- Personality & Intangibles ---
   personalityTraits?: PlayerPersonalityTraitEnum[];
@@ -94,4 +95,7 @@ export interface Player {
   // --- Off-field & Miscellaneous ---
   offFieldConcerns?: OffFieldConcernTypeEnum[];
   pastEvents?: PlayerEventEnum[]; // Array of past events affecting the player
+
+  createdAt?: Date; // Timestamp of when the player was created
+  updatedAt?: Date; // Timestamp of the last update to the player data
 }

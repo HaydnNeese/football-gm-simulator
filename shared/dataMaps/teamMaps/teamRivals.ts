@@ -24,10 +24,10 @@ export const TeamRivalMap: Record<string, string[]> = {
   LAC: ['DEN', 'KC', 'LV'],
 
   // NFC East
-  DAL: ['NYG', 'PHI', 'WAS'],
-  NYG: ['DAL', 'PHI', 'WAS'],
-  PHI: ['DAL', 'NYG', 'WAS'],
-  WAS: ['DAL', 'NYG', 'PHI'],
+  DAL: ['NYG', 'PHI', 'WSH'],
+  NYG: ['DAL', 'PHI', 'WSH'],
+  PHI: ['DAL', 'NYG', 'WSH'],
+  WSH: ['DAL', 'NYG', 'PHI'],
 
   // NFC North
   CHI: ['DET', 'GB', 'MIN'],

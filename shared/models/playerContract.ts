@@ -1,3 +1,4 @@
+import { ContractStatus } from "@shared/enums";
 import { CapHitByYear } from "./capHitByYear";
 import { ContractBonus } from "./contractBonus";
 import { DeadCapByYear } from "./deadCapByYear";
@@ -25,6 +26,9 @@ export interface PlayerContract {
   isTeamOptOut?: boolean;
   restructureHistory?: RestructureEvent[];
   clauses?: ContractClauses;
+  status?: ContractStatus;
+
+  // TODO negotiation history?
 }
 
 export interface RestructureEvent {

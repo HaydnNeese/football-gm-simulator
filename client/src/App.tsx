@@ -1,34 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import Button from '@mui/material/Button'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import { Team } from '@shared/models'
+import TeamTable from './components/tables/team-table/TeamTable'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [teams, setTeams] = useState<Team[]>([])
+
+    const getTeams = (() => {
+    fetch('http://localhost:5000/api/teams')
+      .then((res) => res.json())
+      .then((data) => setTeams(data))
+      .catch((err) => console.error(err));
+  });
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div style={{ padding: 24 }}>
+      <Card variant="outlined">
+        <CardContent className="bg-gray-500">
+          <Typography variant="h5" component="div">
+            Welcome to Your Football GM Simulator
+          </Typography>
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            Material UI is working!
+          </Typography>
+          <Button variant="contained" color="primary" onClick={getTeams}>
+            Get Teams
+          </Button>
+        </CardContent>
+      </Card>
+
+      {teams.length > 0 && <TeamTable teams={teams} />}
+    </div>
   )
 }
 

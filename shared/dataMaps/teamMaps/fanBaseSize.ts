@@ -25,7 +25,7 @@ export const TeamFanBaseSizeMap: Record<string, number> = {
   CLE: 5.8,
   TB: 5.4,
   NYJ: 5.4,
-  WAS: 5.4,
+  WSH: 5.4,
   IND: 5.3,
   ARI: 4.5,
   LAC: 4.3,

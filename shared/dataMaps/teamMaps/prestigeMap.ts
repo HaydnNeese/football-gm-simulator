@@ -21,7 +21,7 @@ export const TeamPrestigeMap: Record<string, number> = {
   CLE: 63,
   ATL: 60,
   TB: 59,
-  WAS: 58,
+  WSH: 58,
   NYJ: 56,
   CAR: 53,
   LAC: 52,

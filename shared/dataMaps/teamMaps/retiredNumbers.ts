@@ -30,5 +30,5 @@ export const retiredNumbersMap: Record<string, number[]> = {
   SEA: [12, 45, 71, 80, 96],
   TB: [55, 63, 99],
   TEN: [1, 9, 27, 34, 43, 63, 65, 74],
-  WAS: [9, 21, 33, 49],
+  WSH: [9, 21, 33, 49],
 };

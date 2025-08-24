@@ -30,5 +30,5 @@ export enum NFLStadium {
   SF  = "Levi's Stadium",
   TB  = "Raymond James Stadium",
   TEN = "Nissan Stadium",
-  WAS = "FedExField"
+  WSH = "FedExField"
 }

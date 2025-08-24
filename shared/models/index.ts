@@ -12,3 +12,4 @@ export * from './deadCapByYear';
 export * from './salaryByYear';
 export * from './optOutYear';
 export * from './agent';
+export * from './incentives';

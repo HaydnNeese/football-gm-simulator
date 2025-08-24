@@ -1,8 +1,10 @@
+import { lstat } from "fs";
 import { PlayerPositionEnum } from "../../enums";
 
 export const playerPositionMap: Record<string, PlayerPositionEnum> = {
   QB: PlayerPositionEnum.QB,
   RB: PlayerPositionEnum.RB,
+  FB: PlayerPositionEnum.FB,
   WR: PlayerPositionEnum.WR,
   TE: PlayerPositionEnum.TE,
   OT: PlayerPositionEnum.OT,
@@ -14,5 +16,7 @@ export const playerPositionMap: Record<string, PlayerPositionEnum> = {
   CB: PlayerPositionEnum.CB,
   S: PlayerPositionEnum.S,
   K: PlayerPositionEnum.K,
+  PK: PlayerPositionEnum.K,
   P: PlayerPositionEnum.P,
+  LS: PlayerPositionEnum.LS
 };

@@ -204,7 +204,7 @@ export const teamBrandingMap: {
     logoUrl:
       "https://upload.wikimedia.org/wikipedia/en/c/c1/Tennessee_Titans_logo.svg",
   },
-  WAS: {
+  WSH: {
     colorPrimary: "#5A1414",
     colorSecondary: "#FFB612",
     logoUrl:

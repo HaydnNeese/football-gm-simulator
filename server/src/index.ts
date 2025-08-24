@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import playerRoutes from './routes/playerRoutes';
 import teamRoutes from './routes/teamRoutes';
+import { Request, Response } from 'express';
 
 dotenv.config();
 
@@ -11,7 +12,10 @@ const app = express();
 const PORT = process.env.PORT;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
+app.use(cors())
 app.use(express.json());
 
 // Routes

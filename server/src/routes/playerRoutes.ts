@@ -4,6 +4,10 @@ import { getAllPlayers, getPlayerById } from "../controller/playerController";
 const router = express.Router();
 
 router.get("/", getAllPlayers);
-router.get("/:id", getPlayerById);
+
+router.get("/:id", (req, res, next) => {
+  req.params.id = req.params.id.trim();
+  next();
+}, getPlayerById);
 
 export default router;

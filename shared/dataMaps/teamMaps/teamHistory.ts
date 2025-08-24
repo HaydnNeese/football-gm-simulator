@@ -288,7 +288,7 @@ export const teamHistoriesMap: {
     superBowlAppearances: 1,
     championships: 0,
   },
-  WAS: {
+  WSH: {
     yearFounded: 1932,
     allTimeWins: 641,
     allTimeLosses: 648,

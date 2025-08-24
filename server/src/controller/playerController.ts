@@ -1,11 +1,21 @@
 import { Request, Response } from "express";
 import prisma from "../prisma/client";
+import { PlayerPositionEnum } from "@shared/enums/PlayerPosition";
+import { validatePlayerSort, validateOrder } from "../utils/validators";
 
 // GET all players
 export const getAllPlayers = async (req: Request, res: Response) => {
+  const { position, sortBy, order } = req.query;
+
+  const sortField = validatePlayerSort(String(sortBy));
+  const sortOrder = validateOrder(String(order));
+
   try {
     console.log("Fetching all players");
-    const players = await prisma.player.findMany();
+    const players = await prisma.player.findMany({
+      where: position ? { position: position as PlayerPositionEnum } : undefined,
+      orderBy: { [sortField]: sortOrder },
+    });
     res.json(players);
   } catch (error) {
     console.error(error);

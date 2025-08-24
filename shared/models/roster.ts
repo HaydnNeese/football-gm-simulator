@@ -10,7 +10,9 @@ export interface Roster {
 }
 
 export interface RosterPlayer {
+  id?: string;
   playerId: string;
+  rosterId: string;
   jerseyNumber?: number;
   position: Position;
   isStarter?: boolean;

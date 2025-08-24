@@ -131,7 +131,7 @@ export const TeamSchemeMap: {
     offensiveScheme: OffensiveSchemeEnum.POWER_RUN,
     defensiveScheme: DefensiveSchemeEnum.ZONE_HEAVY,
   },
-  WAS: {
+  WSH: {
     offensiveScheme: OffensiveSchemeEnum.WEST_COAST,
     defensiveScheme: DefensiveSchemeEnum.FOUR_THREE,
   },

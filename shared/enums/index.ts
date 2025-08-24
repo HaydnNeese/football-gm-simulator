@@ -15,3 +15,5 @@ export * from './NFLStadiums';
 export * from './Strategy';
 export * from './ContractNegotiationStatus';
 export * from './NFLStadiums'
+export * from './InjuryStatus'
+export * from './ContractStatus';
