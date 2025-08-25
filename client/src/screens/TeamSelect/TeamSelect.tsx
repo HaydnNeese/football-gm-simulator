@@ -1,11 +1,8 @@
 import Box from "@mui/material/Box";
 import { Team } from "@shared/models/team";
 import { useEffect, useState } from "react";
-import TeamCard from "../../components/cards/TeamCard/TeamCard";
-import LinearProgress from "@mui/material/LinearProgress";
-import ChevronLeft from "@mui/icons-material/ChevronLeft";
-import ChevronRight from "@mui/icons-material/ChevronRight";
-import Button from "@mui/material/Button";
+import TeamCard from "./TeamCard";
+import CircularProgress from "@mui/material/CircularProgress";
 import SelectorButton from "./SelectorButton";
 
 function TeamSelect() {
@@ -13,8 +10,10 @@ function TeamSelect() {
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
   const [selectIndex, setSelectIndex] = useState<number>(0);
   const [currentTeam, setCurrentTeam] = useState<Team | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setLoading(true);
     // Fetch teams
     fetch("http://localhost:5000/api/teams?sort=location&order=asc")
       .then((res) => res.json())
@@ -23,7 +22,8 @@ function TeamSelect() {
         setSelectIndex(0);
         setCurrentTeam(data[selectIndex]);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   }, []);
 
   const nextTeam = () => {
@@ -49,19 +49,21 @@ function TeamSelect() {
   };
 
   return (
-    <Box className="flex flex-row items-center justify-center gap-2 bg-gray-200 min-h-screen w-full">
-      <SelectorButton direction="left" onClick={prevTeam} />
-      {currentTeam ? (
-        <TeamCard
-          key={currentTeam.id}
-          team={currentTeam}
-          selected={selectedTeam === currentTeam.id}
-          onSelect={setSelectedTeam}
-        />
+    <Box className="flex flex-row justify-center pt-11 gap-2 min-h-screen w-full">
+      {!loading ? (
+        <>
+          <SelectorButton direction="left" onClick={prevTeam} />
+          <TeamCard
+            key={currentTeam!.id}
+            team={currentTeam!}
+            selected={selectedTeam === currentTeam!.id}
+            onSelect={setSelectedTeam}
+          />
+          <SelectorButton direction="right" onClick={nextTeam} />
+        </>
       ) : (
-        <LinearProgress />
+        <CircularProgress size={180} />
       )}
-      <SelectorButton direction="right" onClick={nextTeam} />
     </Box>
   );
 }

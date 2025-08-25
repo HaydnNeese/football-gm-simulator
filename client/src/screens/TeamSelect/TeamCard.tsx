@@ -15,17 +15,10 @@ function TeamCard({
     <Grid
       onClick={() => onSelect(team.id!)}
       sx={{
-        cursor: "pointer",
-        border: `3px solid ${team.colorSecondary}`,
-        borderRadius: "8px",
-        height: "80vh",
-        width: "70vw", 
-        textAlign: "center",
-        padding: "1rem",
         backgroundColor: team.colorPrimary,
-        color: "#fff",
+        border: `3px solid ${team.colorSecondary}`,
       }}
-      className="flex flex-col gap-1 items-center justify-center"
+      className="flex flex-col gap-1 items-center justify-center cursor-pointer text-white text-center p-4 rounded-lg h-[90vh] w-[90vw]"
     >
       <img
         src={team.logoUrl}
