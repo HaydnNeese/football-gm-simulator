@@ -1,39 +1,19 @@
-import { useEffect, useState } from 'react'
 import './App.css'
-import Button from '@mui/material/Button'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import { Team } from '@shared/models'
-import TeamTable from './components/tables/team-table/TeamTable'
+import TeamSelect from './screens/TeamSelect/TeamSelect'
+import AppBar from '@mui/material/AppBar'
 
 function App() {
-  const [teams, setTeams] = useState<Team[]>([])
-
-    const getTeams = (() => {
-    fetch('http://localhost:5000/api/teams')
-      .then((res) => res.json())
-      .then((data) => setTeams(data))
-      .catch((err) => console.error(err));
-  });
-
   return (
-    <div style={{ padding: 24 }}>
-      <Card variant="outlined">
-        <CardContent className="bg-gray-500">
-          <Typography variant="h5" component="div">
-            Welcome to Your Football GM Simulator
-          </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Material UI is working!
-          </Typography>
-          <Button variant="contained" color="primary" onClick={getTeams}>
-            Get Teams
-          </Button>
-        </CardContent>
-      </Card>
+    <div>
+      <AppBar color="warning" position="static">
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          Football GM Simulator
+        </Typography>
+      </AppBar>
+      <TeamSelect/>
 
-      {teams.length > 0 && <TeamTable teams={teams} />}
+      {/* {teams.length > 0 && <TeamTable teams={teams} />} */}
     </div>
   )
 }
