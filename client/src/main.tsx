@@ -11,6 +11,25 @@ const theme = createTheme({
     primary: { main: "#1976d2" },
     secondary: { main: "#dc004e" },
   },
+  typography: {
+    fontFamily: "Anton, sans-serif",
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontFamily: "Anton, sans-serif",
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          fontFamily: "Anton, sans-serif",
+        },
+      },
+    },
+  },
 });
 
 createRoot(document.getElementById('root')!).render(

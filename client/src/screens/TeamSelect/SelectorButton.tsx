@@ -1,13 +1,17 @@
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import Button from "@mui/material/Button";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 function SelectorButton({
   direction,
+  bgColor,
+  arrowColor,
   onClick,
 }: {
   direction: "left" | "right";
+  bgColor: string;
+  arrowColor: string;
   onClick: () => void;
 }) {
   const [pressed, setPressed] = useState(false);
@@ -32,9 +36,9 @@ function SelectorButton({
   return (
     <Button
       onClick={onClick}
-      className={`h-[90vh] rounded-xl min-w-[80px] !bg-gray-200 shadow-md flex items-center justify-center ${
-        pressed ? "bg-blue-500!" : ""
-      } transition-all duration-150`}
+      className={`h-full w-[6vh] shadow-md flex items-center
+                  justify-center transition-all duration-150 rounded-none! ${ pressed ? "bg-blue-500!" : "" }`}
+      sx={{backgroundColor: bgColor, color: arrowColor}}
     >
       {direction === "left" ? (
         <ChevronLeft sx={{ fontSize: 40 }} />

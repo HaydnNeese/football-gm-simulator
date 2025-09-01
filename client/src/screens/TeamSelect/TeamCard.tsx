@@ -1,5 +1,4 @@
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import { Team } from "@shared/models";
 
 function TeamCard({
@@ -9,24 +8,23 @@ function TeamCard({
 }: {
   team: Team;
   selected: boolean;
-  onSelect: (id: string) => void;
+  onSelect: (team: Team) => void;
 }) {
   return (
     <Grid
-      onClick={() => onSelect(team.id!)}
+      onClick={() => onSelect(team)}
       sx={{
         backgroundColor: team.colorPrimary,
-        border: `3px solid ${team.colorSecondary}`,
+        caretColor: "transparent",
+        width: `${selected ? "40vh" : "12vh"}`
       }}
-      className="flex flex-col gap-1 items-center justify-center cursor-pointer text-white text-center p-4 rounded-lg h-[90vh] w-[90vw]"
+      className="flex flex-row gap-6 items-center justify-center cursor-pointer text-white text-center h-full"
     >
       <img
         src={team.logoUrl}
         alt={team.name}
-        style={{ width: "300px", marginBottom: "0.5rem" }}
+        style={{ width: `${selected ? "10vh" : "3vh"}`, marginBottom: ".25rem"}}
       />
-      <Typography variant="h2">{team.location}</Typography>
-      <Typography variant="h4">{team.nickname}</Typography>
     </Grid>
   );
 }

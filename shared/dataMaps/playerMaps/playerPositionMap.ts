@@ -1,4 +1,3 @@
-import { lstat } from "fs";
 import { PlayerPositionEnum } from "../../enums";
 
 export const playerPositionMap: Record<string, PlayerPositionEnum> = {

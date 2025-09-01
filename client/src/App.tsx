@@ -1,20 +1,29 @@
-import './App.css'
-import Typography from '@mui/material/Typography'
-import TeamSelect from './screens/TeamSelect/TeamSelect'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
+import "./App.css";
+import TeamSelect from "./screens/TeamSelect/TeamSelect";
+import Box from "@mui/material/Box";
+import { useEffect, useState } from "react";
+import { Team } from "@shared/models";
+import TeamDashboard from "./screens/TeamSelect/TeamDashboard/TeamDashboard";
 
 function App() {
+  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
+
+  useEffect(() => {
+    if (selectedTeam) {
+      document.body.style.background = `linear-gradient(to bottom, ${
+        selectedTeam!.colorPrimary
+      }, white)`;
+    } else {
+      document.body.style.backgroundColor = `linear-gradient(to bottom, lightgray, white)`;
+    }
+  }, [selectedTeam]);
+
   return (
-    <Box className='max-h-screen overflow-hidden bg-gray-900'>
-      <AppBar color="primary" position="sticky">
-        <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-          Football GM Simulator
-        </Typography>
-      </AppBar>
-      <TeamSelect/>
+    <Box className="flex flex-col h-screen overflow-hidden">
+      <TeamSelect teamSelected={setSelectedTeam} />
+      <TeamDashboard team={selectedTeam!}></TeamDashboard>
     </Box>
-  )
+  );
 }
 
-export default App
+export default App;
