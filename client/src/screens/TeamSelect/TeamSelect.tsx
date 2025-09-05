@@ -66,32 +66,27 @@ function TeamSelect({ teamSelected }: { teamSelected: (team: Team) => void }) {
           borderTop: `3px solid ${selectedTeam?.colorSecondary!}`,
         }}
       >
-        {!loading ? (
-          <>
-            <SelectorButton
-              direction="left"
-              bgColor={selectedTeam?.colorSecondary!}
-              arrowColor={selectedTeam?.colorPrimary!}
-              onClick={prevTeam}
-            />
-            {teams.map((team) => (
-              <TeamCard
-                key={team.id}
-                team={team}
-                selected={selectedTeam?.id === team.id}
-                onSelect={selectTeam}
-              />
-            ))}
-            <SelectorButton
-              direction="right"
-              bgColor={selectedTeam?.colorSecondary!}
-              arrowColor={selectedTeam?.colorPrimary!}
-              onClick={nextTeam}
-            />
-          </>
-        ) : (
-          <CircularProgress size={180} />
-        )}
+        <SelectorButton
+          direction="left"
+          bgColor={selectedTeam?.colorSecondary!}
+          arrowColor={selectedTeam?.colorPrimary!}
+          onClick={prevTeam}
+        />
+        {/* TODO need to indicate that a user is hovering these TeamCards */}
+        {teams.map((team) => (
+          <TeamCard
+            key={team.id}
+            team={team}
+            selected={selectedTeam?.id === team.id}
+            onSelect={selectTeam}
+          />
+        ))}
+        <SelectorButton
+          direction="right"
+          bgColor={selectedTeam?.colorSecondary!}
+          arrowColor={selectedTeam?.colorPrimary!}
+          onClick={nextTeam}
+        />
       </Box>
     </Box>
   );

@@ -12,8 +12,8 @@ export function TabPanel({
   index: string;
 }) {
   return (
-    <div role="tabpanel" hidden={value !== index} {...other}>
-      {value === index && <Box sx={{ p: 2 }}>{children}</Box>}
+    <div role="tabpanel" className="flex flex-col h-full" hidden={value !== index} {...other}>
+      {value === index && <Box className="h-full p-2">{children}</Box>}
     </div>
   );
 }

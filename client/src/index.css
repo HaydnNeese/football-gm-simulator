@@ -1,4 +1,7 @@
 @import "tailwindcss";
+/* fonts */
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -23,6 +26,6 @@ body {
   min-height: 100vh;
 }
 
-/* fonts */
-/* src/index.css */
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+img {
+  @apply caret-transparent select-none;
+}

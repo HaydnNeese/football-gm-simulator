@@ -9,6 +9,7 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import React from "react";
 import { TabPanel } from "src/components/tabs/TabPanel";
+import TeamOverview from "./TeamOverview";
 
 const maskStyle = {
   WebkitMaskImage:
@@ -27,17 +28,21 @@ function TeamDashboard({ team }: { team: Team | null }) {
     setTabValue(newValue);
   };
   return (
-    <Box className="flex flex-row h-full w-full py-8 pr-8" sx={{fontFamily: 'Anton, sans-serif'}}>
+    <Box
+      className="flex flex-row h-full w-full py-8 pr-8"
+      sx={{ fontFamily: "Anton, sans-serif" }}
+    >
       <Box className="basis-1/4">
+      {/* TODO need transparent player images for the rest of the teams */}
         <img
           src={PlayerTransparentPhotoMap[team?.abbreviation!]}
-          alt="Kyler Murray"
+          alt="Star Player Image"
           className="w-full h-full object-cover"
           style={maskStyle}
         ></img>
       </Box>
       <Card
-        className="flex-1 h-full rounded-2xl!"
+        className="flex flex-col flex-1 h-full rounded-2xl!"
         sx={{
           border: `3px solid ${team?.colorPrimary}`,
         }}
@@ -46,8 +51,7 @@ function TeamDashboard({ team }: { team: Team | null }) {
           className="flex flex-row gap-4 items-center justify-between pr-4 text-white"
           sx={{ backgroundColor: team?.colorPrimary }}
         >
-          <Box className="flex flex-row gap-4 items-center p-4">
-            <img src={team?.logoUrl} alt={team?.name} className="h-16 w-16" />
+          <Box className="p-4">
             <Typography variant="h5" className="caret-transparent">
               {team?.name ?? "Select a Team"}
             </Typography>
@@ -60,13 +64,24 @@ function TeamDashboard({ team }: { team: Team | null }) {
             Purchase Team
           </Button>
         </Box>
+        {/* TODO the left and right arrow key press works on these tabs as well
+           as my custom team selector, need it to only work on team selector */}
         <Tabs
           value={tabValue}
           onChange={handleChange}
-          textColor="primary"
-          indicatorColor="primary"
           variant="fullWidth"
           aria-label="team select tabs"
+          sx={{
+            "& .MuiTab-root": {
+              color: team?.colorTertiary ?? "primary",
+            },
+            "& .Mui-selected": {
+              color: team?.colorPrimary ?? "primary",
+            },
+            "& .MuiTabs-indicator": {
+              backgroundColor: team?.colorPrimary ?? "primary",
+            },
+          }}
         >
           <Tab value="overview" label="Overview" />
           <Tab value="roster" label="Roster" />
@@ -77,8 +92,8 @@ function TeamDashboard({ team }: { team: Team | null }) {
         </Tabs>
 
         <TabPanel value={tabValue} index="overview">
-          <Typography variant="h6">Overview</Typography>
-          <p>Quick summary: team identity, record, star players, fan base.</p>
+          {/* <p>Quick summary: team identity, record, star players, fan base.</p> */}
+          <TeamOverview team={team} />
         </TabPanel>
 
         <TabPanel value={tabValue} index="roster">
